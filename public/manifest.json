@@ -1,0 +1,16 @@
+{
+  "short_name": "Bcharity",
+  "name": "Bcharity",
+  "description": "Farm GIVE with LP Tokens",
+  "icons": [
+    {
+      "src": "logo.png",
+      "type": "image/x-icon",
+      "sizes": "256x256"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
