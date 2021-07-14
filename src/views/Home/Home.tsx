@@ -24,7 +24,8 @@ import FarmingandstakingCard from 'views/Home/components/FarmingandstakingCard'
 import FSCard2 from 'views/Home/components/FarmingandstakingCard2'
 import BottomCard from 'views/Home/components/BottomCard'
 
-import HomeHeaderCard from './components/HomeHeaderCard' // TODO: remove later, this is just test component
+import HomeHeaderCard from './components/HomeHeaderCard'
+import CountdownTimer from "./components/CountdownTimer"; // TODO: remove later, this is just test component
 
 const CardHeader = styled(BaseLayout)`
   align-items: stretch;
@@ -221,13 +222,14 @@ const Home: React.FC = () => {
 
   return (
     <Page>
+
+      <CountdownTimer />
+
       <div>
         <HomeHeaderCardLayout>
           <HomeHeaderCard />
         </HomeHeaderCardLayout>
       </div>
-
-
 
       <div>
           <Cards>
