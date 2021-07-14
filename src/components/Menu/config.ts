@@ -107,7 +107,7 @@ const config: (t: ContextApi['t']) => MenuEntry[] = (t) => [
       // },
       {
         label: t('QuickChart'),
-        href: 'https://quickchart.app/token/0x9bbcda2606e616659b118399a2823e8a392f55da',
+        href: 'https://quickchart.app/token/0x9bbcda2606e616659b118399a2823e8a392f55da?pairedWith=USDC',
       },
       {
         label: t('Polychart'),
