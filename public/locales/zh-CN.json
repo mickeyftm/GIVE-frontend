@@ -6,6 +6,8 @@
   "Docs": "文档",
   "Voting": "投票",
   "Lottery": "彩票",
+  "News": "新闻",
+
   "Unlock Wallet": "解锁钱包",
   "Your %asset% Balance": "您的 %asset% 余额",
   "Total %asset% Supply": "%asset% 总供应量",
@@ -104,6 +106,7 @@
   "Sign out": "退出",
   "Harvest all (%count%)": "全部收割 (%count%)",
   "Cake Stats": "CAKE 统计数据",
+  "GIVE Stats": "GIVE 统计数据",
   "Total CAKE Supply": "CAKE 总供应量",
   "Total CAKE Burned": "CAKE 总焚毁量",
   "New CAKE/block": "新 CAKE/区块",
