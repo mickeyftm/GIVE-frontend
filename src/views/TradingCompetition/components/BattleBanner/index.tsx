@@ -43,9 +43,9 @@ const BattleBanner = () => {
 
   return (
     <Flex flexDirection="column">
-      <ImageWrapper>
-        <Image src={AllBunniesImage} alt="all the bunnies" width={1208} height={659} responsive />
-      </ImageWrapper>
+      {/* <ImageWrapper> */}
+      {/*  <Image src={AllBunniesImage} alt="all the bunnies" width={1208} height={659} responsive /> */}
+      {/* </ImageWrapper> */}
       <StyledText mb="16px" color="textSubtle" bold>
         {t('April')} 07—14, 2021
       </StyledText>

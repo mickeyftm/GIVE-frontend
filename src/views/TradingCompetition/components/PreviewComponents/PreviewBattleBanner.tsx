@@ -26,9 +26,9 @@ const BattleBanner = () => {
   const { t } = useTranslation()
   return (
     <Flex flexDirection="column" justifyContent="center" alignItems="center">
-      <ImageWrapper>
-        <Image src={AllBunniesImage} alt="all the bunnies" width={1208} height={659} responsive />
-      </ImageWrapper>
+      {/* <ImageWrapper> */}
+      {/*  <Image src={AllBunniesImage} alt="all the bunnies" width={1208} height={659} responsive /> */}
+      {/* </ImageWrapper> */}
       <StyledHeading1Text>{t('Easter Battle')}</StyledHeading1Text>
       <StyledHeading2Text background="linear-gradient(180deg, #FFD800 0%, #EB8C00 100%)" $fill>
         {t('$200,000 in Prizes!')}

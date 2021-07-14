@@ -43,13 +43,13 @@ const TeamPodiumIcon: React.FC<PodiumIconProps> = ({ teamId, teamPosition }) => 
 
   return (
     <Wrapper imageSize={imageSize()}>
-      {!teamId ? (
-        <Skeleton variant="circle" width="100%" height="100%" />
-      ) : (
-        <Sticker backgroundColor={teamData[teamId].stickerCol} borderColor={teamData[teamId].stickerCol}>
-          <Image src={`/images/teams/${teamData[teamId].imgSrc}`} responsive width={imageSize()} height={imageSize()} />
-        </Sticker>
-      )}
+      {/* {!teamId ? ( */}
+      {/*  <Skeleton variant="circle" width="100%" height="100%" /> */}
+      {/* ) : ( */}
+      {/*  <Sticker backgroundColor={teamData[teamId].stickerCol} borderColor={teamData[teamId].stickerCol}> */}
+      {/*    <Image src={`/images/teams/${teamData[teamId].imgSrc}`} responsive width={imageSize()} height={imageSize()} /> */}
+      {/*  </Sticker> */}
+      {/* )} */}
     </Wrapper>
   )
 }

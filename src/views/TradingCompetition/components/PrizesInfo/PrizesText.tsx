@@ -33,9 +33,9 @@ const PrizesText = () => {
           'The final winning team will be the team with the highest total combined volume of their top 500 members at the end of the competition period.',
         )}
       </Text>
-      <ImageWrapper>
-        <Image src={FlipperBunny} alt="Flipper bunny" responsive width={499} height={400} />
-      </ImageWrapper>
+      {/* <ImageWrapper> */}
+      {/*  <Image src={FlipperBunny} alt="Flipper bunny" responsive width={499} height={400} />*/}
+      {/* </ImageWrapper> */}
     </StyledFlex>
   )
 }
