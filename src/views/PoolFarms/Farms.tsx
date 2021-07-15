@@ -379,7 +379,7 @@ const Farms: React.FC = () => {
           </Heading>
         </LeftHeader>
         <RightHeader>
-          <img src="images/BCharity-Images/Info2-compressed.png" alt="hand with cartoon heart" width="320px" />
+          <img src="images/BCharity-Images/Info2-cropped.png" alt="hand with cartoon heart" width="320px" />
         </RightHeader>
       </PageHeader>
       <Page>

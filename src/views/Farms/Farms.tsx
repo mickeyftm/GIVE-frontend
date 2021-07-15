@@ -386,7 +386,7 @@ const Farms: React.FC = () => {
           </Heading>
         </LeftHeader>
         <RightHeader>
-          <img src="images/BCharity-Images/Info1-compressed.png" alt="bundle of money with coins" width="280px" />
+          <img src="images/BCharity-Images/Info1-cropped.png" alt="bundle of money with coins" width="280px" />
         </RightHeader>
       </PageHeader>
       <Page>
