@@ -90,7 +90,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm, removed, cakePrice, account }
 
   const totalValueFormatted =
     farm.liquidity && farm.liquidity.gt(0)
-      ? `$${farm.liquidity.toNumber().toLocaleString(undefined, { maximumFractionDigits: 5 })}`
+      ? `$${farm.liquidity.toNumber().toLocaleString(undefined, { maximumFractionDigits: 2 })}`
       : ''
 
   // const lpLabel = farm.lpSymbol && farm.lpSymbol.toUpperCase().replace('PANCAKE', '')
@@ -124,8 +124,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm, removed, cakePrice, account }
         <Text bold style={{ display: 'flex', alignItems: 'center' }}>
           {farm.apy ? (
             <>
-              {farmAPY}%
-              {/* <text style={{ fontSize: 13, marginLeft: '1px' }}> </text>% */}
+              {farmAPY}%{/* <text style={{ fontSize: 13, marginLeft: '1px' }}> </text>% */}
             </>
           ) : (
             <Skeleton height={24} width={80} />
