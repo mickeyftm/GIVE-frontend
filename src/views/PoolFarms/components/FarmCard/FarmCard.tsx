@@ -89,7 +89,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm, removed, cakePrice, account }
 
   const totalValueFormatted =
     farm.liquidity && farm.liquidity.gt(0)
-      ? `$${farm.liquidity.toNumber().toLocaleString(undefined, { maximumFractionDigits: 8 })}`
+      ? `$${farm.liquidity.toNumber().toLocaleString(undefined, { maximumFractionDigits: 2 })}`
       : ''
 
   const lpLabel = farm.lpSymbol && farm.lpSymbol.toUpperCase().replace('PANCAKE', '')
@@ -122,8 +122,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm, removed, cakePrice, account }
         <Text bold style={{ display: 'flex', alignItems: 'center' }}>
           {farm.apy ? (
             <>
-              {farmAPY}%
-              {/* <text style={{ fontSize: 13, marginLeft: '1px' }}> 23</text>% */}
+              {farmAPY}%{/* <text style={{ fontSize: 13, marginLeft: '1px' }}> 23</text>% */}
             </>
           ) : (
             <Skeleton height={24} width={80} />
@@ -150,10 +149,12 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm, removed, cakePrice, account }
         <Text>{t('Earn')}:</Text>
         <Text bold>{earnLabel}</Text>
       </Flex>
-     <Flex justifyContent='space-between'>
+      <Flex justifyContent="space-between">
         <Text style={{ fontSize: '24px' }}>{t('Deposit Fee')}:</Text>
-        <Text bold style={{ fontSize: '24px' }}>{(farm.depositFeeBP / 100)}%</Text>
-     </Flex>
+        <Text bold style={{ fontSize: '24px' }}>
+          {farm.depositFeeBP / 100}%
+        </Text>
+      </Flex>
       <CardActionsContainer farm={farm} account={account} addLiquidityUrl={addLiquidityUrl} />
       <Divider />
       <ExpandableSectionButton
