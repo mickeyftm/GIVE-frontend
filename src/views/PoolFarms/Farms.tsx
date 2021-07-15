@@ -177,7 +177,7 @@ const Farms: React.FC = () => {
         const totalLiquidity = new BigNumber(farm.lpTotalInQuoteToken).times(farm.token.busdPrice)
         const apr = isActive ? getFarmApr(new BigNumber(farm.poolWeight), cakePrice, totalLiquidity) : 0
         // calculating APY, remove the division later when apy stabilizes
-        const apy = ((1 + apr / 100 / 365) ** 365 - 1) / 100000000000000000000000
+        const apy = ((1 + apr / 100 / 365) ** 365 - 1)
         return { ...farm, apr, liquidity: totalLiquidity, apy }
       })
 

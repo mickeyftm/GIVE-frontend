@@ -124,8 +124,8 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm, removed, cakePrice, account }
         <Text bold style={{ display: 'flex', alignItems: 'center' }}>
           {farm.apy ? (
             <>
-              {farmAPY} * 10
-              <text style={{ fontSize: 13, marginLeft: '1px' }}> 23</text>%
+              {farmAPY}%
+              {/* <text style={{ fontSize: 13, marginLeft: '1px' }}> </text>% */}
             </>
           ) : (
             <Skeleton height={24} width={80} />
