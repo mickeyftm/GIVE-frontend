@@ -177,7 +177,7 @@ const Farms: React.FC = () => {
         const totalLiquidity = new BigNumber(farm.lpTotalInQuoteToken).times(farm.token.busdPrice)
         const apr = isActive ? getFarmApr(new BigNumber(farm.poolWeight), cakePrice, totalLiquidity) : 0
         // calculating APY, remove the division later when apy stabilizes
-        const apy = ((1 + apr / 100 / 365) ** 365 - 1)
+        const apy = ((1 + apr / 100 / 365) ** 365 - 1) * 100
         return { ...farm, apr, liquidity: totalLiquidity, apy }
       })
 
@@ -429,7 +429,7 @@ const Farms: React.FC = () => {
         </ControlContainer>
         {renderContent()}
         <div ref={loadMoreRef} />
-        <StyledImage src="/images/BCharity-Images/cat2.png" alt="cat illustration" width={180} height={150}  />
+        <StyledImage src="/images/BCharity-Images/cat2.png" alt="cat illustration" width={180} height={150} />
       </Page>
     </>
   )
