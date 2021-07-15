@@ -18,8 +18,14 @@ const Wrapper = styled.div`
 
 const StyledLinkExternal = styled(LinkExternal)`
   font-weight: 400;
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  &:hover {
+    text-decoration: underline;
+  }
+  color: ${({ theme }) => theme.colors.primary};
 `
-
 const DetailsSection: React.FC<ExpandableSectionProps> = ({
   bscScanAddress,
   infoAddress,
