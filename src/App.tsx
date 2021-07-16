@@ -56,7 +56,7 @@ const App: React.FC = () => {
         {/* for page loading - uses pageLoader defined by ui-kit */}
         <SuspenseWithChunkError fallback={<PageLoader />}>
           <Switch>
-            <Route path="/" exact>
+            <Route path="/s" exact>
               <Home />
             </Route>
             <Route path="/farms">
@@ -99,8 +99,8 @@ const App: React.FC = () => {
             <Route path="/collectibles">
               <Redirect to="/nft" />
             </Route>
-            <Route path="/referral">
-            <Referral />
+            <Route path="/referrals">
+              <Referral />
             </Route>
             {/* 404 */}
             <Route component={NotFound} />

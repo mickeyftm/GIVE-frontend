@@ -76,7 +76,7 @@ const config: (t: ContextApi['t']) => MenuEntry[] = (t) => [
   {
     label: t('Referral'),
     icon: 'TicketIcon',
-    href: '/referral',
+    href: '/referrals',
   },
   // {
   //   label: t('Team Battle'),
