@@ -33,15 +33,11 @@ const CakeStats = () => {
   const cakeSupply = totalSupply ? getBalanceNumber(totalSupply) - burnedBalance : 0
   const marketCap = givePrice.times(circSupply);
 
-  // alert("givePrice".concat(givePrice.toString()))
-
   const farm0 = useFarmFromPid(0)
   let givePerBlock = CAKE_PER_BLOCK.toNumber() // backup use the number in config/index.ts
-  // right now givePerBlock is undefined? so just using backup for now TODO: fix this
   if(farm0 && farm0.givePerBlock){
     givePerBlock = new BigNumber(farm0.givePerBlock).div(new BigNumber(10).pow(18)).toNumber();
   }
-
 
 
   return (
@@ -52,7 +48,7 @@ const CakeStats = () => {
         </Heading>
         <Row>
           <Text fontSize="14px">{t('Market Cap')}</Text>
-          <CardValue fontSize="14px" value={getBalanceNumber(marketCap)} decimals={0} prefix="$" />
+          { cakeSupply && <CardValue fontSize="14px"  decimals={0} prefix="$" value={getBalanceNumber(marketCap)} /> }
         </Row>
         <Row>
           <Text fontSize="14px">{t('Total Minted')}</Text>
@@ -60,7 +56,7 @@ const CakeStats = () => {
         </Row>
         <Row>
           <Text fontSize="14px">{t('Total Burned')}</Text>
-          <CardValue fontSize="14px" decimals={0} value={burnedBalance} />
+          { cakeSupply && <CardValue fontSize="14px" decimals={0} value={burnedBalance} /> }
         </Row>
         <Row>
           <Text fontSize="14px">{t( 'Circulating Supply')}</Text>
@@ -72,7 +68,7 @@ const CakeStats = () => {
         </Row>
         <Row>
           <Text fontSize="14px">{t('New GIVE/block')}</Text>
-          <CardValue fontSize="14px" decimals={3} value={givePerBlock} />
+          { cakeSupply && <CardValue fontSize="14px" decimals={3} value={givePerBlock} /> }
         </Row>
       </CardBody>
     </StyledCakeStats>
