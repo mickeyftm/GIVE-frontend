@@ -31,9 +31,9 @@ export const useSousHarvest = (sousId, isUsingBnb = false) => {
     } else {
       await soushHarvest(sousChefContract, account)
     }
-    dispatch(updateUserPendingReward(sousId, account))
-    dispatch(updateUserBalance(sousId, account))
-  }, [account, dispatch, isUsingBnb, masterChefContract, sousChefContract, sousId])
+    // dispatch(updateUserPendingReward(sousId, account))
+    // dispatch(updateUserBalance(sousId, account))
+  },  [account, isUsingBnb, masterChefContract, sousChefContract, sousId]) /* [account, dispatch, isUsingBnb, masterChefContract, sousChefContract, sousId]) */
 
   return { onReward: handleHarvest }
 }

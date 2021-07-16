@@ -19,6 +19,7 @@ import history from './routerHistory'
 // Only pool is included in the main bundle because of it's the most visited page
 // removed unused pages
 const Home = lazy(() => import('./views/Home'))
+const Referral = lazy(() => import('./views/Referral'))
 const Farms = lazy(() => import('./views/Farms'))
 const Farms2 = lazy(() => import('./views/PoolFarms'))
 // const Lottery = lazy(() => import('./views/Lottery'))
@@ -97,6 +98,9 @@ const App: React.FC = () => {
             </Route>
             <Route path="/collectibles">
               <Redirect to="/nft" />
+            </Route>
+            <Route path="/referral">
+            <Referral />
             </Route>
             {/* 404 */}
             <Route component={NotFound} />

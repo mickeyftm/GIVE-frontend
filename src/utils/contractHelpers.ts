@@ -16,6 +16,7 @@ import {
   getLotteryTicketAddress,
   getLotteryV2Address,
   getMasterChefAddress,
+  getReferralAddress,
   getPointCenterIfoAddress,
   getClaimRefundAddress,
   getTradingCompetitionAddress,
@@ -24,7 +25,7 @@ import {
   getPredictionsAddress,
   getChainlinkOracleAddress,
   getGiveAddress,
-  // getTestMasterChefAddress,
+    // getTestMasterChefAddress,
   // getBscMasterChefAddress,
 } from 'utils/addressHelpers'
 
@@ -42,6 +43,7 @@ import lpTokenAbi from 'config/abi/lpToken.json'
 import cakeAbi from 'config/abi/cake.json'
 import ifoV1Abi from 'config/abi/ifoV1.json'
 import ifoV2Abi from 'config/abi/ifoV2.json'
+import referral from 'config/abi/referral.json'
 import pointCenterIfo from 'config/abi/pointCenterIfo.json'
 import lotteryAbi from 'config/abi/lottery.json'
 import lotteryTicketAbi from 'config/abi/lotteryNft.json'
@@ -161,4 +163,9 @@ export const getPredictionsContract = (web3?: Web3) => {
 }
 export const getChainlinkOracleContract = (web3?: Web3) => {
   return getContract(chainlinkOracleAbi, getChainlinkOracleAddress(), web3)
+}
+
+// Referral 
+export const getReferralContract = (web3?: Web3) => {
+  return getContract(referral, getReferralAddress(), web3)
 }

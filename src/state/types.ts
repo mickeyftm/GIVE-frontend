@@ -1,7 +1,7 @@
 import { ThunkAction } from 'redux-thunk'
 import { AnyAction } from '@reduxjs/toolkit'
 import BigNumber from 'bignumber.js'
-import { CampaignType, FarmConfig, Nft, PoolConfig, Team } from 'config/constants/types'
+import { CampaignType, FarmConfig, ReferralConfig, Nft, PoolConfig, Team } from 'config/constants/types'
 
 export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, State, unknown, AnyAction>
 
@@ -61,6 +61,17 @@ export interface Profile {
   nft?: Nft
   team: Team
   hasRegistered: boolean
+}
+
+export interface Referral extends ReferralConfig {
+  userData?: {
+    earnings: string
+  }
+}
+
+export interface ReferralState {
+  data: Referral[]
+  userDataLoaded: boolean
 }
 
 // Slices states
@@ -261,6 +272,7 @@ export interface State {
   achievements: AchievementState
   block: BlockState
   farms: FarmsState
+  referral: ReferralState
   pools: PoolsState
   predictions: PredictionsState
   profile: ProfileState

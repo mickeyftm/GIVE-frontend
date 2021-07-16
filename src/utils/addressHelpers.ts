@@ -41,6 +41,9 @@ export const getWbnbAddress = () => {
   // NOT ACTUAL ADDRESS, JUST PLACEHOLDER
   return getAddress(addresses.placeholder)
 }
+export const getReferralAddress = () => {
+  return getAddress(addresses.referral)
+}
 export const getLotteryAddress = () => {
   // return getAddress(addresses.lottery)
   // NOT ACTUAL ADDRESS, JUST PLACEHOLDER

@@ -1,10 +1,14 @@
 import { useEffect, useState } from 'react'
 import { useWeb3React } from '@web3-react/core'
 import multicall from 'utils/multicall'
-import { getMasterChefAddress } from 'utils/addressHelpers'
+import { getMasterChefAddress, getReferralAddress } from 'utils/addressHelpers'
 import masterChefABI from 'config/abi/masterchef.json'
 import { farmsConfig } from 'config/constants'
+import BigNumber from 'bignumber.js'
+import { BIG_ZERO } from 'utils/bigNumber'
 import useRefresh from './useRefresh'
+
+
 
 // used in CakeHarvestBalance.tsx in Home component to get all earnings
 const useAllEarnings = () => {
