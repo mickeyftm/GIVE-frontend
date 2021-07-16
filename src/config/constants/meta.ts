@@ -9,6 +9,10 @@ export const DEFAULT_META: PageMeta = {
 
 export const getCustomMeta = (path: string, t: ContextApi['t']): PageMeta => {
   switch (path) {
+    case '/s':
+      return {
+        title: `${t('Home')} | ${t('BCharity')}`,
+      }
     case '/':
       return {
         title: `${t('Home')} | ${t('BCharity')}`,
