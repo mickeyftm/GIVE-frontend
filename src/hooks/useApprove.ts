@@ -41,7 +41,7 @@ export const useSousApprove = (lpContract: Contract, sousId, earningTokenSymbol)
     try {
       setRequestedApproval(true)
       const tx = await approve(lpContract, sousChefContract, account)
-      dispatch(updateUserAllowance(sousId, account))
+      // dispatch(updateUserAllowance(sousId.Number(), account.toString()))
       if (tx) {
         toastSuccess(
           t('Contract Enabled'),
@@ -57,7 +57,7 @@ export const useSousApprove = (lpContract: Contract, sousId, earningTokenSymbol)
       console.error(e)
       toastError(t('Error'), e?.message)
     }
-  }, [account, dispatch, lpContract, sousChefContract, sousId, earningTokenSymbol, t, toastError, toastSuccess])
+  }, [account, lpContract, sousChefContract, earningTokenSymbol, t, toastError, toastSuccess]) /* [account, dispatch, lpContract, sousChefContract, sousId, earningTokenSymbol, t, toastError, toastSuccess]) */
 
   return { handleApprove, requestedApproval }
 }

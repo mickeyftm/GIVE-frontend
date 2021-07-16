@@ -38,10 +38,11 @@ export const useSousStake = (sousId: number, isUsingBnb = false) => {
       } else {
         await sousStake(sousChefContract, amount, decimals, account)
       }
-      dispatch(updateUserStakedBalance(sousId, account))
-      dispatch(updateUserBalance(sousId, account))
+      // dispatch(updateUserStakedBalance(sousId, account))
+      // dispatch(updateUserBalance(sousId, account))
     },
-    [account, dispatch, isUsingBnb, masterChefContract, sousChefContract, sousId],
+      [account, isUsingBnb, masterChefContract, sousChefContract, sousId],
+    /* [account, dispatch, isUsingBnb, masterChefContract, sousChefContract, sousId], */
   )
 
   return { onStake: handleStake }

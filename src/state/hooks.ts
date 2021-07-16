@@ -181,7 +181,7 @@ export const usePools = (account): { pools: Pool[]; userDataLoaded: boolean } =>
   const dispatch = useAppDispatch()
   useEffect(() => {
     if (account) {
-      dispatch(fetchPoolsUserDataAsync(account))
+      // dispatch(fetchPoolsUserDataAsync(account))
     }
   }, [account, dispatch, fastRefresh])
   
