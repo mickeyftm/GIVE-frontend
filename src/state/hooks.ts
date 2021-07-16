@@ -4,7 +4,7 @@ import { useWeb3React } from '@web3-react/core'
 import { useSelector } from 'react-redux'
 import { useAppDispatch } from 'state'
 import { orderBy } from 'lodash'
-import { Team } from 'config/constants/types'
+import { Team, ReferralConfig} from 'config/constants/types'
 import Nfts from 'config/constants/nfts'
 import { farmsConfig } from 'config/constants'
 import { getWeb3NoAccount } from 'utils/web3'
@@ -21,7 +21,7 @@ import {
   fetchCakeVaultFees,
   setBlock,
 } from './actions'
-import { State, Farm, Pool, ProfileState, TeamsState, AchievementState, FarmsState } from './types'
+import { State, Farm, Pool, ProfileState, TeamsState, AchievementState, FarmsState, ReferralState } from './types'
 import { fetchProfile } from './profile'
 import { fetchTeam, fetchTeams } from './teams'
 import { fetchAchievements } from './achievements'
@@ -75,10 +75,22 @@ export const usePollBlockNumber = () => {
     const interval = setInterval(async () => {
       const blockNumber = await web3.eth.getBlockNumber()
       dispatch(setBlock(blockNumber))
-    }, 6000)
+    }, 6000) 
 
     return () => clearInterval(interval)
   }, [dispatch, web3])
+}
+
+//  Referral 
+
+export const useReferral= (id: number) => {
+  const referral: ReferralConfig = useSelector((state: State) => state.referral.data[id])
+  const dispatch = useAppDispatch()
+  useEffect(() => {
+    dispatch(fetchTeam(id))
+  }, [id, dispatch])
+
+  return referral
 }
 
 // Farms
@@ -172,7 +184,7 @@ export const usePools = (account): { pools: Pool[]; userDataLoaded: boolean } =>
       dispatch(fetchPoolsUserDataAsync(account))
     }
   }, [account, dispatch, fastRefresh])
-
+  
   const { pools, userDataLoaded } = useSelector((state: State) => ({
     pools: state.pools.data,
     userDataLoaded: state.pools.userDataLoaded,

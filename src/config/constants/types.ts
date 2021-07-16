@@ -212,6 +212,11 @@ export enum PoolCategory {
   'AUTO' = 'Auto',
 }
 
+export interface ReferralConfig {
+  address: Address
+  referrer?: Address
+}
+
 export interface FarmConfig {
   pid: number
   lpSymbol: string
