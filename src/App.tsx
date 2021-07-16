@@ -59,6 +59,9 @@ const App: React.FC = () => {
             <Route path="/s" exact>
               <Home />
             </Route>
+            <Route path="/">
+              <Redirect to="/s" />
+            </Route>
             <Route path="/farms">
               <Farms />
             </Route>
