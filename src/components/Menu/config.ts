@@ -8,7 +8,7 @@ const config: (t: ContextApi['t']) => MenuEntry[] = (t) => [
   {
     label: t('Home'),
     icon: 'HomeIcon',
-    href: '/',
+    href: '/s',
   },
   {
     label: t('Trade'),
@@ -105,7 +105,7 @@ const config: (t: ContextApi['t']) => MenuEntry[] = (t) => [
     label: t('Charts'),
     icon: 'InfoIcon',
     items: [
-        // change these links if token changes
+      // change these links if token changes
       // {
       //   label: t('KEKTools'),
       //   href: 'https://kek.tools/t/0x9bbcda2606e616659b118399a2823e8a392f55da',
