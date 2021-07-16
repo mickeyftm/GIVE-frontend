@@ -10,6 +10,7 @@ import useI18n from 'hooks/useI18n'
 import { getCakeAddress } from 'utils/addressHelpers'
 import CardValue from './CardValue'
 import { useFarms } from '../../../state/hooks'
+import useTheme from "../../../hooks/useTheme";
 
 
 const StyledTwitterCard = styled(Card)`
@@ -26,8 +27,8 @@ const Row = styled.div`
 `
 
 const TwitterCard = () => {
-  const TranslateString = useI18n()
   const { t } = useTranslation()
+  const { isDark } = useTheme()
 
   return (
     <StyledTwitterCard>
@@ -44,7 +45,8 @@ const TwitterCard = () => {
           options={{
             height: '350',
             chrome: "noheader, nofooter",
-            width: "500"
+            width: "500",
+            theme: isDark ? "dark": "light"
           }}
         />
       </CardBody>
