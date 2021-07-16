@@ -73,14 +73,16 @@ const CountDownTitle = styled.div`
 const CountdownTimer = () => {
     const { t } = useTranslation()
 
-    const finishTime = new Date("July 21, 2021 11:00:00").getTime()
-    const currentTime = new Date().getTime()
+    // July 21, 9AM
+    // month is month index so july is 6 not 7
+    const finishTime = Date.UTC(2021,6,21, 15)
+    const currentTime = Date.now()
 
     const timeLeft = finishTime - currentTime
 
-    const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+    const days = timeLeft > 0 ? Math.floor(timeLeft / (1000 * 60 * 60 * 24)) : 0
+    const hours = timeLeft > 0 ? Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)) : 0
+    const minutes = timeLeft > 0 ?Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60)) : 0
     // const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
 
     return (
