@@ -34,7 +34,7 @@ const RedirectCard = () => {
         <Heading color="contrast" scale="lg">
           {t('NFT website')}
         </Heading>
-        <CardMidContent color="rgba(102, 102, 255,1)">{t('Coming Soon')}</CardMidContent>
+        <CardMidContent color="rgba(102, 102, 255,1)">{t('Available, Testing on Rinkeby network.')}</CardMidContent>
         <Flex justifyContent="space-between">
           <Heading color="contrast" scale="lg" />
           <ArrowForwardIcon mt={30} color="primary" />
