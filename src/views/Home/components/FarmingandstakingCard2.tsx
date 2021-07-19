@@ -12,67 +12,10 @@ import {CAKE_PER_BLOCK} from "../../../config";
 import {useAppDispatch} from "../../../state";
 import {fetchFarmsPublicDataAsync, nonArchivedFarms} from "../../../state/farms";
 import {getFarmApr} from "../../../utils/apr";
+import useTheme from "../../../hooks/useTheme";
 
 
 // font import
-
-// changed name to match card , changed background to gradient
-// to stack a bg image on top of gradient, list it before linear-gradient
-const StyledTestCard = styled(Card)`
-
-  min-height: 500px;
-  min-width: 180px;
-  color: #FAF9FA;
-
-  // for the phone but it screws up the desk top
-  /* ${({ theme }) => theme.mediaQueries.sm} {
-    max-width: 160px;
-  } */
-`
-
-const Block = styled.div`
-  margin-bottom: 16px;
-`
-
-const CardImage = styled.img`
-  margin-bottom: 0x;
-`
-
-const Label = styled.div`
-  color: ${({ theme }) => theme.colors.textSubtle};
-  font-size: 18px;
-`
-
-// colour and size hardcoded for now but for actual should reference theme like Label above
-const TestText = styled.div`
-  font-size: 14px;
-`
-
-const Actions = styled.div`
-  margin-top: 24px;
-`
-const ImagePositioning = styled.div`
-  position: absolute;
-  top: 200px;
-  left: 500px;
-
-  // for the phone but it screws up the desk top
-  /* ${({ theme }) => theme.mediaQueries.sm} {
-    position: absolute;
-    top: 110px;
-  } */
-`
-const ImagePositioningTL = styled.div`
-  position: absolute;
-  top: 200px;
-  left: 500px;
-`
-const TestContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-`
 
 const APRFormat = styled.div`
   font-family: 'Tw Cen MT'; 
@@ -83,18 +26,18 @@ const APRFormat = styled.div`
   margin-bottom: 20px;
 `
 
-const EarningTextColor = styled.div`
+const EarningTextColor = styled.div<{isDark: boolean}>`
   font-family: 'Tw Cen MT'; 
-  color: black;
+  color: ${({isDark}) => isDark ? "white": "black"};
   text-align: center;
   font-size: 50px;
   margin-bottom: 20px;
   margin-top: 80px;
 `
 
-const TextColor = styled.div`
+const TextColor = styled.div<{isDark: boolean}>`
   font-family: 'Tw Cen MT'; 
-  color: black;
+  color: ${({isDark}) => isDark ? "white": "black"};;
   text-align: center;
   font-size: 50px;
   margin-bottom: 20px;
@@ -228,6 +171,7 @@ const TextContainer = styled.div`
 const FSCard2 = () => {
 
   const { t } = useTranslation()
+  const { isDark } = useTheme()
 
     const totalSupply = useTotalSupply()
     const parsedTotalSupply = totalSupply ? getBalanceNumber(totalSupply): 0
@@ -282,9 +226,9 @@ const FSCard2 = () => {
 
     return (
       <CardBody>
-        <EarningTextColor>Earn up to</EarningTextColor>
+        <EarningTextColor isDark={isDark}>Earn up to</EarningTextColor>
         <APRFormat>{highestApr}%</APRFormat>
-        <TextColor>APR in Farms</TextColor>
+        <TextColor isDark={isDark} >APR in Farms</TextColor>
 
         <BlueCircleA> </BlueCircleA>
         <BlueCircle>

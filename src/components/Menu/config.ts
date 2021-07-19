@@ -20,7 +20,7 @@ const config: (t: ContextApi['t']) => MenuEntry[] = (t) => [
       // },
       {
         label: t('Swap (QuickSwap)'),
-        href: 'https://quickswap.exchange/#/swap',
+        href: 'https://quickswap.exchange/#/swap?outputCurrency=0x9Bbcda2606e616659b118399A2823E8a392f55DA',
       },
       // {
       //   label: t('Exchange (Uniswap)'),

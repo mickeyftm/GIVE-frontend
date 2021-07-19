@@ -29,17 +29,18 @@ const RedirectCard = () => {
 
   return (
     <StyledRedirectCard>
-      {/* TODO: add link to nft website when it is ready */}
-      <CardBody onClick={() => alert('website is not avalible yet')}>
-        <Heading color="contrast" scale="lg">
-          {t('NFT website')}
-        </Heading>
-        <CardMidContent color="rgba(102, 102, 255,1)">{t('Available, Testing on Rinkeby network.')}</CardMidContent>
-        <Flex justifyContent="space-between">
-          <Heading color="contrast" scale="lg" />
-          <ArrowForwardIcon mt={30} color="primary" />
-        </Flex>
-      </CardBody>
+      <a href="https://bcharity-nft-marketplace.netlify.app/" target="_blank" rel="noreferrer">
+        <CardBody>
+          <Heading color="contrast" scale="lg">
+            {t('NFT website')}
+          </Heading>
+          <CardMidContent color="rgba(102, 102, 255,1)">{t('Available, Testing on Rinkeby network.')}</CardMidContent>
+          <Flex justifyContent="space-between">
+            <Heading color="contrast" scale="lg" />
+            <ArrowForwardIcon mt={30} color="primary" />
+          </Flex>
+        </CardBody>
+      </a>
     </StyledRedirectCard>
   )
 }
