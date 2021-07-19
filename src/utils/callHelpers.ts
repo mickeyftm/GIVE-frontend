@@ -34,8 +34,8 @@ export const stake = async (masterChefContract, pid, amount, account, tokenDecim
     .deposit(
       pid,
       new BigNumber(amount).times(tokenDecimals).toString(),
-      '0x0000000000000000000000000000000000000000',
-    ) // TODO: change to referer
+      account,
+    ) // TODO: change to referer right now using own account as referrer
     .send({ from: account, gas: DEFAULT_GAS_LIMIT })
     .on('transactionHash', (tx) => {
       return tx.transactionHash
@@ -111,7 +111,7 @@ export const harvest = async (masterChefContract, pid, account) => {
   // }
 
   return masterChefContract.methods
-    .deposit(pid, '0', '0x0000000000000000000000000000000000000000') // TODO: change to referer
+    .deposit(pid, '0', account) // TODO: change account to referer
     .send({ from: account, gas: DEFAULT_GAS_LIMIT })
     .on('transactionHash', (tx) => {
       return tx.transactionHash

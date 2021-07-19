@@ -31,6 +31,8 @@ const CardValue: React.FC<CardValueProps> = ({
       decimals !== undefined ? decimals : value < 0 ? 4 : value > 1e5 ? 0 : 3,
   })
 
+
+
   const updateValue = useRef(update)
 
   useEffect(() => {
@@ -40,7 +42,8 @@ const CardValue: React.FC<CardValueProps> = ({
   return (
     <Text bold={bold} fontSize={fontSize} style={{ lineHeight }} color={color}>
       {prefix}
-      {countUp}
+       {/* {countUp} */}
+       {value.toFixed(decimals)}
     </Text>
   )
 }

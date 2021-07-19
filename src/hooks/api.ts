@@ -18,8 +18,8 @@ export interface DeBankTvlResponse {
 }
 
 // used in TotalValueLockedCard.tsx in Home component to get stats
-// use use total value locked(tvl) number though
-// if we want to to use need to change link below
+// refreshing causes the farm state to be kinda weird only some farms have data?
+// use the function useTotalValue() instead
 export const useGetStats = () => {
   const [data, setData] = useState<DeBankTvlResponse | null>(null)
 
@@ -29,7 +29,7 @@ export const useGetStats = () => {
   const cakePrice = usePriceCakeBusd()
   const dispatch = useAppDispatch()
 
-  // Fetch farm data once to get all the liquidity
+  // Fetch farm data at beginning get all the liquidity
   useEffect(() => {
     const fetchFarmData = async () => {
       try {
@@ -44,20 +44,46 @@ export const useGetStats = () => {
 
   const totalValueLocked = useMemo(() => {
     if (cakePrice.gt(0)) {
-      const liquidity = farmsLP.map((farm) => {
-        // Filter inactive farms, because their theoretical APR is super high. In practice, it's 0.
-        let totalLiquidity = 0
-        if (farm.pid !== 0 && farm.multiplier !== '0X' && farm.lpTotalInQuoteToken && farm.quoteToken.busdPrice && !farm.isSingleToken) {
-          totalLiquidity = new BigNumber(farm.lpTotalInQuoteToken).times(farm.quoteToken.busdPrice).toNumber()
+      let totalLiquidity = 0
+      for (let i = 0; i <farmsLP.length; i++){
+        const oldtotal = totalLiquidity
+        if (!farmsLP[i].isSingleToken && farmsLP[i].multiplier !== '0X'&& !farmsLP[i].isHiddenFarm && farmsLP[i].lpTotalInQuoteToken && farmsLP[i].quoteToken.busdPrice) {
+          totalLiquidity += new BigNumber(farmsLP[i].lpTotalInQuoteToken).times(farmsLP[i].quoteToken.busdPrice).toNumber()
         }
-        else if (farm.isSingleToken && farm.multiplier !== '0X' && farm.lpTotalInQuoteToken && farm.token.busdPrice){
-          totalLiquidity = new BigNumber(farm.lpTotalInQuoteToken).times(farm.token.busdPrice).toNumber()
+        // pool
+        else if (farmsLP[i].isSingleToken && farmsLP[i].multiplier !== '0X' && !farmsLP[i].isHiddenFarm && farmsLP[i].lpTotalInQuoteToken && farmsLP[i].token.busdPrice){
+          totalLiquidity += new BigNumber(farmsLP[i].lpTotalInQuoteToken).times(farmsLP[i].token.busdPrice).toNumber()
         }
-        return totalLiquidity
-      })
+        // // TEST
+        // alert("pid: ".concat(farmsLP[i].pid.toString())
+        //     .concat("\n isSingleToken: ").concat(farmsLP[i].isSingleToken ? farmsLP[i].isSingleToken.toString() : "not def - false")
+        //     .concat("\n mult is not 0x?: ").concat((farmsLP[i].multiplier !== '0X').toString())
+        //     .concat("\n lpTotalInQuoteToken: ").concat((farmsLP[i].lpTotalInQuoteToken ? farmsLP[i].lpTotalInQuoteToken.toString(): " no lp total"))
+        //     .concat("\n quote token usd: ").concat((farmsLP[i].quoteToken.busdPrice ? farmsLP[i].quoteToken.busdPrice.toString(): "no quote token price"))
+        //     .concat("\n token usd: ").concat((farmsLP[i].token.busdPrice ? farmsLP[i].token.busdPrice.toString(): "no token price"))
+        //     .concat("\n total liq for this farm").concat((totalLiquidity - oldtotal).toString()))
 
-      const maxApr = liquidity.reduce((a, b) => a + b, 0) // sums up all the individual liquidities
-      return maxApr
+      }
+      return totalLiquidity
+
+
+      // const liquidity = farmsLP.map((farm) => {
+      //   let farmTotalLiquidity = 0
+      //   // farm
+      //   if (!farm.isSingleToken && farm.multiplier !== '0X' && farm.lpTotalInQuoteToken && farm.quoteToken.busdPrice) {
+      //     farmTotalLiquidity = new BigNumber(farm.lpTotalInQuoteToken).times(farm.quoteToken.busdPrice).toNumber()
+      //   }
+      //   // pool
+      //   else if (farm.isSingleToken && farm.multiplier !== '0X' && farm.lpTotalInQuoteToken && farm.token.busdPrice){
+      //     farmTotalLiquidity = new BigNumber(farm.lpTotalInQuoteToken).times(farm.token.busdPrice).toNumber()
+      //   }
+      //
+      //   return farmTotalLiquidity
+      // })
+      //
+      // const totalLiquidtyActiveFarmsPools = liquidity.reduce((a, b) => a + b, 0) // sums up all the individual liquidities
+      // return totalLiquidtyActiveFarmsPools
+
     }
     return null
   }, [cakePrice, farmsLP])

@@ -187,6 +187,25 @@ export const useLpTokenPrice = (symbol: string) => {
   return lpTokenPrice
 }
 
+// for TVL number on homepage card
+export const useTotalValue = (): number => {
+  const {data: farms} = useFarms();
+
+  let totalLiquidity = 0
+  for (let i = 0; i < farms.length; i++) {
+    const oldtotal = totalLiquidity
+    if (!farms[i].isSingleToken && farms[i].multiplier !== '0X' && !farms[i].isHiddenFarm && farms[i].lpTotalInQuoteToken && farms[i].quoteToken.busdPrice) {
+      totalLiquidity += new BigNumber(farms[i].lpTotalInQuoteToken).times(farms[i].quoteToken.busdPrice).toNumber()
+    }
+    // pool
+    else if (farms[i].isSingleToken && farms[i].multiplier !== '0X' && !farms[i].isHiddenFarm && farms[i].lpTotalInQuoteToken && farms[i].token.busdPrice) {
+      totalLiquidity += new BigNumber(farms[i].lpTotalInQuoteToken).times(farms[i].token.busdPrice).toNumber()
+    }
+
+  }
+  return totalLiquidity
+}
+
 // Pools
 
 export const useFetchPublicPoolsData = () => {
