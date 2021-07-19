@@ -43,37 +43,51 @@ const LeftHeader = styled.div`
   display: inline-block;
 `
 
-const referralAddress = ' '
+
 const referralContract = getReferralContract()
 
 const getReferrer = async () => {
   referralContract.methods.getReferrer().call()
 }
-const ReferralButton = ({ isRegistered }) => {
-  const { t } = useTranslation()
-  if (!isRegistered) {
-    return <UnlockButton width="100%" />
-  }
-  return <ReferralAddress isRegistered />
-}
 
-const ReferralAddress = ({ isRegistered }) => {
-  const { t } = useTranslation()
-  if (isRegistered) {
-    return (
-      <Text>
-        {' '}
-        {`${window.location.protocol}//`}
-        {`${window.location.host}/`}
-        {t('%addr%', { addr: referralAddress })}{' '}
-      </Text>
-    )
-  }
-  return <Text>{t('Please Log in')}</Text>
-}
+
 const Referral: React.FC = () => {
   const { account } = useWeb3React()
+
   const { t } = useTranslation()
+
+  const ReferralAddress = ({ isRegistered }) => {
+    if (isRegistered) {
+      return (
+        <Text>
+          {' '}
+          {`${window.location.protocol}//`}
+          {`${window.location.host}/?ref=`}
+          {t('%addr%', { addr: account })}{' '}
+        </Text>
+      )
+    }
+    return <Text>{t('Please Log in')}</Text>
+  } 
+  const ReferralButton = ({ isRegistered }) => {
+    if (!isRegistered) {
+      return <UnlockButton width="100%" />
+    }
+    return (
+    <>
+    <ReferralAddress isRegistered />
+      <CopyToClipboard
+      toCopy={' '.concat(
+        `${window.location.protocol}//`,
+        `${window.location.host}/?ref=`,
+        t('%addr%', { addr: account }),
+      )}
+    >
+      Copy Address
+    </CopyToClipboard>
+    </>
+  )}
+  
   return (
     <>
       <PageHeader>
@@ -89,16 +103,7 @@ const Referral: React.FC = () => {
       <Page>
         <ControlContainer>
           <ReferralButton isRegistered={account} />
-          <CopyToClipboard
-            toCopy={' '.concat(
-              `${window.location.protocol}//`,
-              `${window.location.host}/`,
-              '%addr%',
-              t('%addr%', { addr: referralAddress }),
-            )}
-          >
-            Copy Address
-          </CopyToClipboard>
+         
         </ControlContainer>
       </Page>
     </>

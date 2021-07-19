@@ -1,11 +1,10 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo } from 'react'
 import BigNumber from 'bignumber.js'
 import { useWeb3React } from '@web3-react/core'
 import { useSelector } from 'react-redux'
-import { useTranslation } from 'contexts/Localization'
 import { useAppDispatch } from 'state'
 import { orderBy } from 'lodash'
-import { Team} from 'config/constants/types'
+import { Team, ReferralConfig} from 'config/constants/types'
 import Nfts from 'config/constants/nfts'
 import { farmsConfig } from 'config/constants'
 import { getWeb3NoAccount } from 'utils/web3'
@@ -13,9 +12,6 @@ import { getBalanceAmount } from 'utils/formatBalance'
 import { BIG_ONE, BIG_ZERO } from 'utils/bigNumber'
 import useRefresh from 'hooks/useRefresh'
 import { filterFarmsByQuoteToken } from 'utils/farmsPriceHelpers'
-import { getReferralAddress } from 'utils/addressHelpers'
-import { getReferralContract } from 'utils/contractHelpers'
-import makeBatchRequest from 'utils/makeBatchRequest'
 import {
   fetchFarmsPublicDataAsync,
   fetchPoolsPublicDataAsync,
@@ -25,7 +21,7 @@ import {
   fetchCakeVaultFees,
   setBlock,
 } from './actions'
-import { State, Farm, Pool, ProfileState, TeamsState, AchievementState, FarmsState, ReferralState} from './types'
+import { State, Farm, Pool, ProfileState, TeamsState, AchievementState, FarmsState, ReferralState } from './types'
 import { fetchProfile } from './profile'
 import { fetchTeam, fetchTeams } from './teams'
 import { fetchAchievements } from './achievements'
@@ -34,7 +30,6 @@ import { getCanClaim } from './predictions/helpers'
 import { transformPool } from './pools/helpers'
 import { fetchPoolsStakingLimitsAsync } from './pools'
 import { fetchFarmUserDataAsync, nonArchivedFarms } from './farms'
-
 
 export const usePollFarmsData = (includeArchive = false) => {
   const dispatch = useAppDispatch()
@@ -88,38 +83,14 @@ export const usePollBlockNumber = () => {
 
 //  Referral 
 
-export const useFetchUserReferralData = () => {
-  const { t } = useTranslation()
-  const [address, setData] = useState({
-    referralsCount: BIG_ZERO,
-    getReferrer: BIG_ZERO,
-    owner: BIG_ZERO,
-  })
-
+export const useReferral= (id: number) => {
+  const referral: ReferralConfig = useSelector((state: State) => state.referral.data[id])
+  const dispatch = useAppDispatch()
   useEffect(() => {
-    const fetchCosts = async () => {
-      try {
-        const userReferralContract = getReferralContract()
-          const [referralsCount, getReferrer, owner] = await makeBatchRequest([
-            userReferralContract.methods.referralsCount().call,
-            userReferralContract.methods.getReferrer().call,
-            userReferralContract.methods.owner().call,
-          ])
+    dispatch(fetchTeam(id))
+  }, [id, dispatch])
 
-          setData({
-            referralsCount: new BigNumber(referralsCount as string),
-            getReferrer: new BigNumber(getReferrer as string),
-            owner: new BigNumber(owner as string),
-        })
-      } catch (error) {
-         t('Referral fetch failed.')
-      }
-    }
-
-    fetchCosts()
-  }, [setData, t])
-
-  return address
+  return referral
 }
 
 // Farms
@@ -538,4 +509,3 @@ export const useGetCollectibles = () => {
     nftsInWallet: Nfts.filter((nft) => identifiers.includes(nft.identifier)),
   }
 }
-
