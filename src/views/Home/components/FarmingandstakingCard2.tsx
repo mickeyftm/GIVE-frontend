@@ -32,7 +32,10 @@ const EarningTextColor = styled.div<{isDark: boolean}>`
   text-align: center;
   font-size: 50px;
   margin-bottom: 20px;
-  margin-top: 80px;
+  margin-top: 200px;
+  ${({ theme }) => theme.mediaQueries.nav} {
+      margin-top: 80px;
+    }
 `
 
 const TextColor = styled.div<{isDark: boolean}>`
@@ -46,85 +49,124 @@ const TextColor = styled.div<{isDark: boolean}>`
 const BlueCircle = styled.div`
   background-image: linear-gradient(165deg, #ADFCAC, #9895DB, #67B4EB);
   border-radius: 50%;
-  width: 250px;
-  height: 250px;
+  width: 200px;
+  height: 200px;
   float: left;
-  margin-top: -350px;
-  margin-left: 40px;
-  
+  margin-top: -490px;
+  margin-left: 20px;
+  ${({ theme }) => theme.mediaQueries.nav} {
+      width: 250px;
+      height: 250px;
+      margin-top: -350px;
+      margin-left: 40px;
+    }
 `
 
 const BlueCircleA = styled.div`
   background-image: linear-gradient(165deg, #ADFCAC, #9895DB, #67B4EB);
   border-radius: 50%;
-  width: 250px;
-  height: 250px;
+  width: 200px;
+  height: 200px;
   float: left;
-  margin-top: -330px;
-  margin-left: 70px;
+  margin-top: -470px;
+  margin-left: 50px;
   margin-right: 10px;
   opacity: 0.5;
+  ${({ theme }) => theme.mediaQueries.nav} {
+      width: 250px;
+      height: 250px;
+      margin-top: -330px;
+      margin-left: 70px;
+    }
 `
 
 const OrangeCircle = styled.div`
   background-image: linear-gradient(165deg, #FF7AB0, #FEBD95, #FFAF43);
   border-radius: 50%;
-  width: 200px;
-  height: 200px;
+  width: 180px;
+  height: 180px;
   float: left;
-  margin-top: -54px;
-  margin-left: -180px;
-  
+  margin-top: -200px;
+  margin-left: 90px;
+  ${({ theme }) => theme.mediaQueries.nav} {
+      width: 200px;
+      height: 200px;
+      margin-top: -54px;
+      margin-left: -180px;
+    }
 `
 const OrangeCircleA = styled.div`
   background-image: linear-gradient(165deg, #FF7AB0, #FEBD95, #FFAF43);
   border-radius: 50%;
-  width: 200px;
-  height: 200px;
-  float: left;
-  margin-top: -55px;
+  width: 180px;
+  height: 180px;
+  float: right;
+  margin-top: 10px;
   margin-left: 170px;
   opacity: 0.5;
+  ${({ theme }) => theme.mediaQueries.nav} {
+      float: left;
+      margin-top: -55px;
+      margin-left: 170px;
+    }
 `
 
 const PinkCircle = styled.div`
   background-image: linear-gradient(165deg, #C36CF3, #F9C0D6, #EA5CF1);
   border-radius: 50%;
-  width: 300px;
-  height: 300px;
+  width: 240px;
+  height: 240px;
   float: right;
-  margin-right: -320px;
-  margin-top: -220px;
+  margin-right: -240px;
+  margin-top: 10px;
+  ${({ theme }) => theme.mediaQueries.nav} {
+      margin-right: -320px;
+      margin-top: -220px;
+      width: 300px;
+      height: 300px;
+    }
   
 `
 
 const PinkCircleA = styled.div`
   background-image: linear-gradient(165deg, #C36CF3, #F9C0D6, #EA5CF1);
   border-radius: 50%;
-  width: 300px;
-  height: 300px;
+  width: 240px;
+  height: 240px;
   float: right;
-  margin-top: -200px;
+  margin-top: 30px;
+  margin-right: 80px;
   opacity: 0.5;
+  ${({ theme }) => theme.mediaQueries.nav} {
+      margin-top: -200px;
+      margin-right: 0px;
+      width: 300px;
+      height: 300px;
+    }
 `
 
 const BlueCircleText = styled.div`
   font-family: 'Tw Cen MT'; 
   color: white;
   text-align: center;
-  font-size: 70px;
+  font-size: 60px;
   position: relative;
   margin-top: 25%;
-  
+  ${({ theme }) => theme.mediaQueries.nav} {
+      font-size: 70px;
+    }
 `
 
 const BlueCircleTextA = styled.div`
   font-family: 'Tw Cen MT'; 
   color: white;
   text-align: center;
-  font-size: 50px;
+  font-size: 40px;
   position: relative;
   // margin-top: 20%;
+  ${({ theme }) => theme.mediaQueries.nav} {
+      font-size: 50px;
+    }
 `
 
 
@@ -132,26 +174,35 @@ const OrangeCircleTextA = styled.div`
   font-family: 'Tw Cen MT'; 
   color: white;
   text-align: center;
-  font-size: 70px;
+  font-size: 60px;
   position: relative;
   margin-top: 20%;
+  ${({ theme }) => theme.mediaQueries.nav} {
+      font-size: 70px;
+    }
 `
 
 const OrangeCircleText = styled.div`
   font-family: 'Tw Cen MT'; 
   color: white;
   text-align: center;
-  font-size: 35px;
+  font-size: 25px;
   position: relative;
+  ${({ theme }) => theme.mediaQueries.nav} {
+      font-size: 35px;
+    }
 `
 
 const PinkCircleText = styled.div`
   font-family: 'Tw Cen MT'; 
   color: white;
   text-align: center;
-  font-size: 70px;
+  font-size: 60px;
   position: relative;
   margin-top: 30%;
+  ${({ theme }) => theme.mediaQueries.nav} {
+      font-size: 70px;
+    }
 `
 
 const TextColorBlue = styled.div`
@@ -232,20 +283,19 @@ const FSCard2 = () => {
 
         <BlueCircleA> </BlueCircleA>
         <BlueCircle>
-          <BlueCircleText> {Math.round(parsedTotalSupply)} </BlueCircleText>
-          <BlueCircleTextA>Minted</BlueCircleTextA>
+            <BlueCircleText> {Math.round(parsedTotalSupply)} </BlueCircleText>
+            <BlueCircleTextA>Minted</BlueCircleTextA>
         </BlueCircle>
 
-        
         <OrangeCircleA> </OrangeCircleA>
         <OrangeCircle>
-          <OrangeCircleTextA>{givePerBlock}</OrangeCircleTextA>
-          <OrangeCircleText>GIVE per Block</OrangeCircleText>
+            <OrangeCircleTextA>{givePerBlock}</OrangeCircleTextA>
+            <OrangeCircleText>GIVE per Block</OrangeCircleText>
         </OrangeCircle>
 
         <PinkCircleA> </PinkCircleA>
         <PinkCircle>
-          <PinkCircleText>{Math.round(circSupply)} Supply</PinkCircleText>
+            <PinkCircleText>{Math.round(circSupply)} Supply</PinkCircleText>
         </PinkCircle>
 
       </CardBody>
