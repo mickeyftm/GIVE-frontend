@@ -21,6 +21,9 @@ const VerticalLine = styled.line`
   left: 10.5%;
   margin-left: -3px;
   top: 63px;
+  @media only screen and (max-width: 600px) {
+    display: none;
+  }
 `
 
 const HorizontalLineOrange = styled.line`
@@ -29,6 +32,9 @@ const HorizontalLineOrange = styled.line`
   position: absolute;
   left: 10px;
   top: 99%;
+  @media only screen and (max-width: 600px) {
+    display: none;
+  }
 `
 
 const HorizontalLinePink = styled.line`
@@ -37,6 +43,9 @@ const HorizontalLinePink = styled.line`
   position: absolute;
   right: 10px;
   top: 99%;
+  @media only screen and (max-width: 600px) {
+    display: none;
+  }
 `
 
 const CardImage = styled.img`
@@ -45,6 +54,9 @@ const CardImage = styled.img`
   float: right;
   bottom: 0px;
   right: 5%;
+  @media only screen and (max-width: 600px) {
+    display: none;
+  }
 `
 
 const Update = styled.div`
@@ -111,7 +123,7 @@ const HomeHeaderCard = () => {
         <Update color="pink">VISION</Update>
         <Subtitle color="white"> {subtitle} </Subtitle>
         <Title>{title}</Title>
-        <LearnMoreButton>Learn More...</LearnMoreButton>
+        <a href="https://bcharityfi.gitbook.io/bcharity/"><LearnMoreButton>Learn More...</LearnMoreButton></a>
         <CardImage src="/images/BCharity-Images/cat1-compressed.png" alt="cartoon cat holding coffee mug" />
         <HorizontalLineOrange />
         <HorizontalLinePink />
