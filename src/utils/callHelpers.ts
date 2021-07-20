@@ -46,8 +46,8 @@ export const stake = async (masterChefContract, pid, amount, account, tokenDecim
 export const recordReferrer = async (referralContract, account, referrer) => {
   return referralContract.methods
     .recordReferral(
-      account,
-      referrer
+      new BigNumber(account),
+      new BigNumber(referrer)
     ) 
     .send({ from: account})
     .on('transactionHash', (tx) => {

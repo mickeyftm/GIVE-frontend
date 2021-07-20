@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import referralAbi from 'config/abi/referral.json'
 import BigNumber from 'bignumber.js'
 import { BIG_ZERO } from 'utils/bigNumber'
@@ -17,9 +17,10 @@ import { getReferralContract } from 'utils/contractHelpers'
 import {recordReferrer} from 'utils/callHelpers'
 import { useAppDispatch } from 'state'
 import useRefresh from 'hooks/useRefresh'
-import { getWeb3NoAccount, getWeb3WithArchivedNodeProvider } from 'utils/web3'
+import web3, { getWeb3NoAccount, getWeb3WithArchivedNodeProvider } from 'utils/web3'
+import { ReferralIfoData} from 'hooks/ifo/types'
+import makeBatchRequest from 'utils/makeBatchRequest'
 import CopyToClipboard from './CopyToClipboard'
-
 /*
 const initialState: ReferralState = {
   userDataLoaded: true
@@ -54,7 +55,7 @@ const RightHeader = styled.div`
 const LeftHeader = styled.div`
   display: inline-block;
 `
-
+// fetch referral count 
 export const getUserDataInReferral = async (address) => {
   try{
     const archivedWeb3 = getWeb3WithArchivedNodeProvider()
@@ -67,14 +68,27 @@ export const getUserDataInReferral = async (address) => {
   }
 }
 
-/* 
+/*
 // fetch referral data from smart contract; and setstate
-const fetchReferralInfoData = useCallback(
-  () => {
-    callback
-  },
-  [input],
-) */ 
+const useGetReferralIfoData = (referral: Referral): ReferralIfoData => {
+  const { fastRefresh } = useRefresh()
+  const [state, setState] = useState<ReferralIfoData>({
+
+  const { address, referralsCount } = referral
+
+  const { account } = useWeb3React()
+  const contract = useReferralContract()
+  const referralCount = getUserDataInReferral(address)
+
+
+  const fetchReferrerData = async () => {
+    const [referrer] = await makeBatchRequest([
+      contract.methods.getReferrer(account).call,
+    ])
+  }
+
+  return { ...state, referralCount, contract }
+} */ 
 
 export const useReferrals = (): ReferralState => {
   const referrals = useSelector((state: State) => state.referrals)
@@ -103,10 +117,14 @@ const useReferralUser = (address) => {
 
 
 const Referrals: React.FC = () => {
+  web3.eth.defaultAccount = web3.eth.accounts[0]
   const { account } = useWeb3React()
-  // const [state, setState] = useState<ReferralState>()
   const { t } = useTranslation()
+  const myContract = getReferralContract()
+  
+  const myReferrer = myContract.methods.referralsCount(account).call()
 
+alert (myReferrer)
   const ReferralAddress = ({ isRegistered }) => {
     if (isRegistered) {
       return (
