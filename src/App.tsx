@@ -74,7 +74,7 @@ const App: React.FC = () => {
             <Route path="/ifo">
               <Ifos />
             </Route> */}
-            <Route path="/nft">
+            <Route path="/nfts">
               <Collectibles />
             </Route>
             {/* <Route exact path="/teams">
@@ -100,7 +100,7 @@ const App: React.FC = () => {
               <Redirect to="/pools" />
             </Route>
             <Route path="/collectibles">
-              <Redirect to="/nft" />
+              <Redirect to="/nfts" />
             </Route>
             <Route path="/referrals">
               <Referral />

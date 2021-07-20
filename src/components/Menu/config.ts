@@ -71,7 +71,7 @@ const config: (t: ContextApi['t']) => MenuEntry[] = (t) => [
   {
     label: t('NFTs'),
     icon: 'NftIcon',
-    href: '/collectibles',
+    href: '/nfts',
   },
   {
     label: t('Referral'),
