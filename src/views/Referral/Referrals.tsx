@@ -73,6 +73,23 @@ export const getUserDataInReferral = async (address) => {
 const useGetReferralIfoData = (referral: Referral): ReferralIfoData => {
   const { fastRefresh } = useRefresh()
   const [state, setState] = useState<ReferralIfoData>({
+    poolBasic: {
+      amountTokenCommittedInLP: BIG_ZERO,
+      offeringAmountInToken: BIG_ZERO,
+      refundingAmountInLP: BIG_ZERO,
+      taxAmountInLP: BIG_ZERO,
+      hasClaimed: false,
+      isPendingTx: false,
+    },
+    poolUnlimited: {
+      amountTokenCommittedInLP: BIG_ZERO,
+      offeringAmountInToken: BIG_ZERO,
+      refundingAmountInLP: BIG_ZERO,
+      taxAmountInLP: BIG_ZERO,
+      hasClaimed: false,
+      isPendingTx: false,
+    },
+  })
 
   const { address, referralsCount } = referral
 
@@ -80,6 +97,24 @@ const useGetReferralIfoData = (referral: Referral): ReferralIfoData => {
   const contract = useReferralContract()
   const referralCount = getUserDataInReferral(address)
 
+  const setPendingTx = (status: boolean, poolId: PoolIds) =>
+    setState((prevState) => ({
+      ...prevState,
+      [poolId]: {
+        ...prevState[poolId],
+        isPendingTx: status,
+      },
+    }))
+
+  const setIsClaimed = (poolId: PoolIds) => {
+    setState((prevState) => ({
+      ...prevState,
+      [poolId]: {
+        ...prevState[poolId],
+        hasClaimed: true,
+      },
+    }))
+  }
 
   const fetchReferrerData = async () => {
     const [referrer] = await makeBatchRequest([
@@ -87,7 +122,13 @@ const useGetReferralIfoData = (referral: Referral): ReferralIfoData => {
     ])
   }
 
-  return { ...state, referralCount, contract }
+  useEffect(() => {
+    if (account) {
+      fetchIfoData()
+    }
+  }, [account, fetchReferrerData, fastRefresh])
+
+  return { ...state, referralCount, contract, setPendingTx, setIsClaimed, fetchIfoData }
 } */ 
 
 export const useReferrals = (): ReferralState => {
@@ -115,16 +156,19 @@ const useReferralUser = (address) => {
   }
 }
 
+const getReferralCount = async(account, myContract) => {
+  const myReferrer = await myContract.methods.referralsCount(account).call() 
+  return myReferrer 
+}
 
 const Referrals: React.FC = () => {
-  web3.eth.defaultAccount = web3.eth.accounts[0]
+  const parser = document.createElement('a');
+parser.href = "http://example.com:3000/pathname/?search=test#hash";
+  // alert(window.location.pathname)
+  web3.eth.defaultAccount = web3.eth.accounts[0] 
   const { account } = useWeb3React()
   const { t } = useTranslation()
   const myContract = getReferralContract()
-  
-  const myReferrer = myContract.methods.referralsCount(account).call()
-
-alert (myReferrer)
   const ReferralAddress = ({ isRegistered }) => {
     if (isRegistered) {
       return (
