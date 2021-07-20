@@ -121,9 +121,9 @@ const HomeHeaderCard = () => {
 
         <VerticalLine />
         <Update color="pink">VISION</Update>
-        <Subtitle color="white"> {subtitle} </Subtitle>
-        <Title>{title}</Title>
-        <a href="https://bcharityfi.gitbook.io/bcharity/"><LearnMoreButton>Learn More...</LearnMoreButton></a>
+        <Subtitle color="white"> {t(subtitle)} </Subtitle>
+        <Title>{t(title)}</Title>
+        <a href="https://bcharityfi.gitbook.io/bcharity/" target="_blank" rel="noreferrer"><LearnMoreButton>{t("Learn More...")}</LearnMoreButton></a>
         <CardImage src="/images/BCharity-Images/cat1-compressed.png" alt="cartoon cat holding coffee mug" />
         <HorizontalLineOrange />
         <HorizontalLinePink />

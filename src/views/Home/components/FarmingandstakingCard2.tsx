@@ -277,25 +277,25 @@ const FSCard2 = () => {
 
     return (
       <CardBody>
-        <EarningTextColor isDark={isDark}>Earn up to</EarningTextColor>
+        <EarningTextColor isDark={isDark}>{t("Earn up to")}</EarningTextColor>
         <APRFormat>{highestApr}%</APRFormat>
-        <TextColor isDark={isDark} >APR in Farms</TextColor>
+        <TextColor isDark={isDark} >{t("APR in Farms")}</TextColor>
 
         <BlueCircleA> </BlueCircleA>
         <BlueCircle>
             <BlueCircleText> {Math.round(parsedTotalSupply)} </BlueCircleText>
-            <BlueCircleTextA>Minted</BlueCircleTextA>
+            <BlueCircleTextA>{t("Minted")}</BlueCircleTextA>
         </BlueCircle>
 
         <OrangeCircleA> </OrangeCircleA>
         <OrangeCircle>
             <OrangeCircleTextA>{givePerBlock}</OrangeCircleTextA>
-            <OrangeCircleText>GIVE per Block</OrangeCircleText>
+            <OrangeCircleText>{t("GIVE per Block")}</OrangeCircleText>
         </OrangeCircle>
 
         <PinkCircleA> </PinkCircleA>
         <PinkCircle>
-            <PinkCircleText>{Math.round(circSupply)} Supply</PinkCircleText>
+            <PinkCircleText>{Math.round(circSupply)} {t("Supply")}</PinkCircleText>
         </PinkCircle>
 
       </CardBody>
