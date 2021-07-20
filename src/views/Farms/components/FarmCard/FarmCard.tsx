@@ -34,14 +34,15 @@ const AccentGradient = keyframes`
 
 const StyledCardAccent = styled.div`
   background: ${({ theme }) => `linear-gradient(180deg, ${theme.colors.primaryBright}, ${theme.colors.secondary})`};
-  background-size: 400% 400%;
+  background-size: 300% 300%;
   animation: ${AccentGradient} 2s linear infinite;
-  border-radius: 32px;
+  border-radius: 16px;
+  filter: blur(6px);
   position: absolute;
-  top: -1px;
-  right: -1px;
-  bottom: -3px;
-  left: -1px;
+  top: -2px;
+  right: -2px;
+  bottom: -2px;
+  left: -2px;
   z-index: -1;
 `
 
