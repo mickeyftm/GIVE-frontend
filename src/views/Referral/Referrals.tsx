@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import referralAbi from 'config/abi/referral.json'
 import BigNumber from 'bignumber.js'
+import { BIG_ZERO } from 'utils/bigNumber'
+import { useSelector } from 'react-redux'
 import { useWeb3React } from '@web3-react/core'
 import PageHeader from 'components/PageHeader'
 import Page from 'components/layout/Page'
@@ -10,8 +12,18 @@ import { useTranslation } from 'contexts/Localization'
 import UnlockButton from 'components/UnlockButton'
 import { getReferralAddress } from 'utils/addressHelpers'
 import { useReferralContract } from 'hooks/useContract'
+import {Referral, State, ReferralState} from "state/types"
 import { getReferralContract } from 'utils/contractHelpers'
+import {recordReferrer} from 'utils/callHelpers'
+import { useAppDispatch } from 'state'
+import useRefresh from 'hooks/useRefresh'
+import { getWeb3NoAccount, getWeb3WithArchivedNodeProvider } from 'utils/web3'
 import CopyToClipboard from './CopyToClipboard'
+
+/*
+const initialState: ReferralState = {
+  userDataLoaded: true
+} */
 
 const ControlContainer = styled.div`
   display: flex;
@@ -43,17 +55,56 @@ const LeftHeader = styled.div`
   display: inline-block;
 `
 
+export const getUserDataInReferral = async (address) => {
+  try{
+    const archivedWeb3 = getWeb3WithArchivedNodeProvider()
+    const referralContract = getReferralContract(archivedWeb3)
+    const referralCount =  await referralContract.methods.referralsCount(address).call()
+    return new BigNumber(referralCount)
+  }catch (error){
+    console.error(`${error}`)
+    return null
+  }
+}
 
-const referralContract = getReferralContract()
+/* 
+// fetch referral data from smart contract; and setstate
+const fetchReferralInfoData = useCallback(
+  () => {
+    callback
+  },
+  [input],
+) */ 
 
-const getReferrer = async () => {
-  referralContract.methods.getReferrer().call()
+export const useReferrals = (): ReferralState => {
+  const referrals = useSelector((state: State) => state.referrals)
+  return referrals
+}
+
+// fetch referral with a user address
+export const useReferralFromAddress = (address): Referral => {
+  try{
+  const referral = useSelector((state: State) => state.referrals.data.find((f) => f.address === address))
+  return referral}
+  catch (error)  {
+    console.error(`${error}`)
+    return null
+  }
+}
+
+const useReferralUser = (address) => {
+  const referral = useReferralFromAddress(address)
+  return {
+    address: referral ? new BigNumber(referral.address) : BIG_ZERO,
+    referralsCount: referral ? new BigNumber(referral.referralsCount) : BIG_ZERO,
+    referrer: referral ? new BigNumber(referral.referrer) : BIG_ZERO,
+  }
 }
 
 
-const Referral: React.FC = () => {
+const Referrals: React.FC = () => {
   const { account } = useWeb3React()
-
+  // const [state, setState] = useState<ReferralState>()
   const { t } = useTranslation()
 
   const ReferralAddress = ({ isRegistered }) => {
@@ -103,11 +154,10 @@ const Referral: React.FC = () => {
       <Page>
         <ControlContainer>
           <ReferralButton isRegistered={account} />
-         
         </ControlContainer>
       </Page>
     </>
   )
 }
 
-export default Referral
+export default Referrals

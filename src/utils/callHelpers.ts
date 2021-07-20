@@ -42,6 +42,19 @@ export const stake = async (masterChefContract, pid, amount, account, tokenDecim
     })
 }
 
+// input: address user, address referrer
+export const recordReferrer = async (referralContract, account, referrer) => {
+  return referralContract.methods
+    .recordReferral(
+      account,
+      referrer
+    ) 
+    .send({ from: account})
+    .on('transactionHash', (tx) => {
+      return tx.transactionHash
+    })
+}
+
 export const sousStake = async (sousChefContract, amount, decimals = 18, account) => {
   return sousChefContract.methods
     .deposit(new BigNumber(amount).times(BIG_TEN.pow(decimals)).toString())

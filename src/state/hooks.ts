@@ -83,12 +83,12 @@ export const usePollBlockNumber = () => {
 
 //  Referral 
 
-export const useReferral= (id: number) => {
-  const referral: ReferralConfig = useSelector((state: State) => state.referral.data[id])
+export const useReferral= (address: number) => {
+  const referral = useSelector((state: State) => state.referrals.data[address])
   const dispatch = useAppDispatch()
   useEffect(() => {
-    dispatch(fetchTeam(id))
-  }, [id, dispatch])
+    dispatch(fetchTeam(address))
+  }, [address, dispatch])
 
   return referral
 }

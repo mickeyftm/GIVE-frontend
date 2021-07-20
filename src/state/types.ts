@@ -63,10 +63,11 @@ export interface Profile {
   hasRegistered: boolean
 }
 
-export interface Referral extends ReferralConfig {
-  userData?: {
-    earnings: string
-  }
+export interface Referral {
+  map: any
+  address: string
+  referralsCount: number
+  referrer: string
 }
 
 export interface ReferralState {
@@ -272,7 +273,7 @@ export interface State {
   achievements: AchievementState
   block: BlockState
   farms: FarmsState
-  referral: ReferralState
+  referrals: ReferralState
   pools: PoolsState
   predictions: PredictionsState
   profile: ProfileState
