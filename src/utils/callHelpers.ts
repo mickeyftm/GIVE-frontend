@@ -55,6 +55,17 @@ export const recordReferrer = async (referralContract, account, referrer) => {
     })
 }
 
+export const checkReferrer = async (referralContract, account) => {
+  return referralContract.methods.getReferrer(account).call()
+}
+
+export const checkUrl = () => {
+  const match = window.location.search
+  if (match){
+    return true
+  } return false
+}
+
 export const sousStake = async (sousChefContract, amount, decimals = 18, account) => {
   return sousChefContract.methods
     .deposit(new BigNumber(amount).times(BIG_TEN.pow(decimals)).toString())
