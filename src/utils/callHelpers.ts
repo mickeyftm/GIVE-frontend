@@ -9,8 +9,8 @@ import { getAddress, getCakeAddress, getReferralAddress } from 'utils/addressHel
 import tokens from 'config/constants/tokens'
 import pools from 'config/constants/pools'
 import sousChefABI from 'config/abi/sousChef.json'
-import {Referral, State, ReferralState} from "state/types"
-import referralAbi from "config/abi/referral.json"
+import { Referral, State, ReferralState } from 'state/types'
+import referralAbi from 'config/abi/referral.json'
 import { multicallv2 } from './multicall'
 import { getWeb3WithArchivedNodeProvider } from './web3'
 import { getBalanceAmount } from './formatBalance'
@@ -33,12 +33,16 @@ export const stake = async (masterChefContract, pid, amount, account, tokenDecim
   //     })
   // }
 
+  // Gets the referrer address, if there isnt one, use the 0 address
+  const refCheck = getReferrerAddress()
+  let refAdd = null
+  if (refCheck != null) {
+    refAdd = refCheck
+  } else {
+    refAdd = '0x0000000000000000000000000000000000000000'
+  }
   return masterChefContract.methods
-    .deposit(
-      pid,
-      new BigNumber(amount).times(tokenDecimals).toString(),
-      account,
-    ) // TODO: change to referer right now using own account as referrer
+    .deposit(pid, new BigNumber(amount).times(tokenDecimals).toString(), refAdd) // TODO: changed to use referrer address or 0 address
     .send({ from: account, gas: DEFAULT_GAS_LIMIT })
     .on('transactionHash', (tx) => {
       return tx.transactionHash
@@ -48,31 +52,27 @@ export const stake = async (masterChefContract, pid, amount, account, tokenDecim
 // input: address user, address referrer
 export const recordReferrer = async (referralContract, account, referrer) => {
   return referralContract.methods
-    .recordReferral(
-      new BigNumber(account),
-      new BigNumber(referrer)
-    ) 
-    .send({ from: account})
+    .recordReferral(new BigNumber(account), new BigNumber(referrer))
+    .send({ from: account })
     .on('transactionHash', (tx) => {
       return tx.transactionHash
     })
 }
 
-
-// fetch referral 
+// fetch referral
 export const useReferralData = async () => {
   const data = await useSelector((state: State) => state.referrals.data)
   return data
-} 
+}
 
 /*
 export const checkReferrer = async (referralContract, account) => {
   return referralContract.methods.getReferrer(account).call()
-} */ 
+} */
 
 export const getReferrerAddress = () => {
   const params = new URLSearchParams(document.location.search.substring(1))
-  const referrerAdd = params.get("ref")
+  const referrerAdd = params.get('ref')
   return referrerAdd
 }
 
@@ -144,8 +144,16 @@ export const harvest = async (masterChefContract, pid, account) => {
   //     })
   // }
 
+  // Gets the referrer address, if there isnt one, use the 0 address
+  const refCheck = getReferrerAddress()
+  let refAdd = null
+  if (refCheck != null) {
+    refAdd = refCheck
+  } else {
+    refAdd = '0x0000000000000000000000000000000000000000'
+  }
   return masterChefContract.methods
-    .deposit(pid, '0', account) // TODO: change account to referer
+    .deposit(pid, '0', refAdd) // TODO: changed to use referrer address or 0 address
     .send({ from: account, gas: DEFAULT_GAS_LIMIT })
     .on('transactionHash', (tx) => {
       return tx.transactionHash
