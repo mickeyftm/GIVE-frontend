@@ -4,18 +4,18 @@ import { Heading, Card, CardBody, Text } from '@pancakeswap/uikit'
 import { useTranslation } from 'contexts/Localization'
 import { useReferralData } from 'utils/callHelpers'
 
-
+/*
 const counter = async () => {
   const count = await useReferralData()
   return count.referralsCount
-} 
+} */
 
 const Counter = () => {
   const { t } = useTranslation()
-  // const count = useReferralData()
+  const count = useReferralData()
   return (
     <>
-      <Text>{counter}</Text>
+      <Text>{count}</Text>
     </>
   )
 }

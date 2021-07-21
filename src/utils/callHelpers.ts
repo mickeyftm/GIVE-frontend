@@ -65,15 +65,15 @@ export const useReferralData = async () => {
   return data
 } 
 
+/*
 export const checkReferrer = async (referralContract, account) => {
   return referralContract.methods.getReferrer(account).call()
-}
+} */ 
 
-export const checkUrl = () => {
-  const match = window.location.search
-  if (match){
-    return true
-  } return false
+export const getReferrerAddress = () => {
+  const params = new URLSearchParams(document.location.search.substring(1))
+  const referrerAdd = params.get("ref")
+  return referrerAdd
 }
 
 export const sousStake = async (sousChefContract, amount, decimals = 18, account) => {
