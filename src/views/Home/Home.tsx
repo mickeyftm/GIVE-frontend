@@ -223,7 +223,7 @@ const Home: React.FC = () => {
   return (
     <Page>
 
-      <CountdownTimer />
+      {/* <CountdownTimer /> */}
 
       <div>
         <HomeHeaderCardLayout>
