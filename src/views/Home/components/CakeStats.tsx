@@ -7,8 +7,8 @@ import { useTotalSupply, useBurnedBalance } from 'hooks/useTokenBalance'
 import { useTranslation } from 'contexts/Localization'
 import { getGiveAddress } from 'utils/addressHelpers'
 import CardValue from './CardValue'
-import {useFarmFromPid, usePriceCakeBusd} from "../../../state/hooks";
-import {CAKE_PER_BLOCK} from "../../../config";
+import { useFarmFromPid, usePriceCakeBusd } from '../../../state/hooks'
+import { CAKE_PER_BLOCK } from '../../../config'
 
 const StyledCakeStats = styled(Card)`
   margin-left: auto;
@@ -29,16 +29,15 @@ const CakeStats = () => {
   const totalSupply = useTotalSupply()
   const givePrice = usePriceCakeBusd()
   const burnedBalance = getBalanceNumber(useBurnedBalance(getGiveAddress()))
-  const circSupply = totalSupply ? totalSupply.minus(burnedBalance) : new BigNumber(0);
+  const circSupply = totalSupply ? totalSupply.minus(burnedBalance) : new BigNumber(0)
   const cakeSupply = totalSupply ? getBalanceNumber(totalSupply) - burnedBalance : 0
-  const marketCap = givePrice.times(circSupply);
+  const marketCap = givePrice.times(circSupply)
 
   const farm0 = useFarmFromPid(0)
   let givePerBlock = CAKE_PER_BLOCK.toNumber() // backup use the number in config/index.ts
-  if(farm0 && farm0.givePerBlock){
-    givePerBlock = new BigNumber(farm0.givePerBlock).div(new BigNumber(10).pow(18)).toNumber();
+  if (farm0 && farm0.givePerBlock) {
+    givePerBlock = new BigNumber(farm0.givePerBlock).div(new BigNumber(10).pow(18)).toNumber()
   }
-
 
   return (
     <StyledCakeStats>
@@ -48,7 +47,7 @@ const CakeStats = () => {
         </Heading>
         <Row>
           <Text fontSize="14px">{t('Market Cap')}</Text>
-          { cakeSupply && <CardValue fontSize="14px"  decimals={0} prefix="$" value={getBalanceNumber(marketCap)} /> }
+          {cakeSupply && <CardValue fontSize="14px" decimals={0} prefix="$" value={getBalanceNumber(marketCap)} />}
         </Row>
         <Row>
           <Text fontSize="14px">{t('Total Minted')}</Text>
@@ -56,19 +55,19 @@ const CakeStats = () => {
         </Row>
         <Row>
           <Text fontSize="14px">{t('Total Burned')}</Text>
-          { cakeSupply && <CardValue fontSize="14px" decimals={0} value={burnedBalance} /> }
+          {cakeSupply && <CardValue fontSize="14px" decimals={0} value={burnedBalance} />}
         </Row>
         <Row>
-          <Text fontSize="14px">{t( 'Circulating Supply')}</Text>
+          <Text fontSize="14px">{t('Circulating Supply')}</Text>
           {cakeSupply && <CardValue fontSize="14px" value={cakeSupply} decimals={0} />}
         </Row>
         <Row>
-          <Text fontSize="14px">{t( 'Maximum Supply')}</Text>
+          <Text fontSize="14px">{t('Maximum Supply')}</Text>
           {cakeSupply && <CardValue fontSize="14px" value={210000} decimals={0} />}
         </Row>
         <Row>
           <Text fontSize="14px">{t('New GIVE/block')}</Text>
-          { cakeSupply && <CardValue fontSize="14px" decimals={3} value={givePerBlock} /> }
+          {cakeSupply && <CardValue fontSize="14px" decimals={2} value={givePerBlock} />}
         </Row>
       </CardBody>
     </StyledCakeStats>
