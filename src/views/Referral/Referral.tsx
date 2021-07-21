@@ -102,10 +102,10 @@ const Referral: React.FC = () => {
         </LeftHeader>
       </PageHeader>
       <Page>
-        <ControlContainer>
-          <ReferralButton isRegistered={account} />
-         
-        </ControlContainer>
+        {/* <ControlContainer> */}
+        {/*  <ReferralButton isRegistered={account} /> */}
+        {/* */}
+        {/* </ControlContainer> */}
       </Page>
     </>
   )
