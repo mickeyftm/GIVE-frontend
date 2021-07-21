@@ -96,7 +96,8 @@ const Referral: React.FC = () => {
             {t('Referral Program')}
           </Heading>
           <Heading scale="lg" color="text">
-            {t('Share the referral link below to invite your friends and earn 1% of your friends earnings.')}
+            Referral feature coming soon!
+            {/* {t('Share the referral link below to invite your friends and earn 1% of your friends earnings.')} */}
           </Heading>
         </LeftHeader>
       </PageHeader>
