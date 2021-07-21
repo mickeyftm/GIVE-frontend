@@ -4,12 +4,11 @@ import { Heading, Card, CardBody, Text } from '@pancakeswap/uikit'
 import { useTranslation } from 'contexts/Localization'
 import { useReferralData } from 'utils/callHelpers'
 
-const StyledLotteryCard = styled(Card)``
 
 const counter = async () => {
   const count = await useReferralData()
   return count.referralsCount
-}
+} 
 
 const Counter = () => {
   const { t } = useTranslation()

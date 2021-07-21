@@ -1,18 +1,18 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { fetchReferralUserInfo } from 'utils/callHelpers'
 import { ReferralState } from '../types'
+import fetchReferralInfo from "./fetchReferralInfo"
 
 const initialState: ReferralState = {
     userDataLoaded: true,
     data: {
         referralsCount: 0,
-        referrer: ''
+        referrer: '0x0000000000000000000000000000000000000000'
     }
 }
 
 export const referralSlice = createSlice({
-    name: 'Referral',
+    name: 'Referrals',
     initialState,
     reducers: {
         setBlock: (state, action) => {
@@ -36,8 +36,8 @@ export const fetchTeam = (teamId: number) => async (dispatch) => {
   }
 } */
 
-export const getReferralInfo = (account) => async (dispatch) => {
-    const referralUserData = await fetchReferralUserInfo(account)
+export const getReferralInfo = (account: string) => async (dispatch) => {
+    const referralUserData = await fetchReferralInfo(account)
     dispatch(setBlock(referralUserData))
 
 }

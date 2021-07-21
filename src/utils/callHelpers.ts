@@ -58,28 +58,6 @@ export const recordReferrer = async (referralContract, account, referrer) => {
     })
 }
 
-export const fetchReferralUserInfo = async (account: string) => {
-  const referralAddress = getReferralAddress()
-
-  const calls = [
-    {
-      address: referralAddress,
-      name: 'getReferrer',
-      params: [account],
-    },
-    {
-      address: referralAddress,
-      name: 'referralsCount',
-      params: [account],
-    }
-  ]
-
-  const [referrer, referralsCount] = await multicallv2(referralAbi, calls)
-  return {
-    referrer: referrer[0],
-    referralsCount: new BigNumber(referralsCount[0]).toString(),
-  }
-}
 
 // fetch referral 
 export const useReferralData = async () => {

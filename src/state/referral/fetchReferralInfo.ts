@@ -20,10 +20,11 @@ const fetchReferralInfo = async (account: string) => {
       }
     ]
   
-    const [referrer, referralsCount, totalReferralCommissions] = await multicall(referralAbi, calls)
+    const [referrer, referralsCount] = await multicall(referralAbi, calls)
     return {
       referrer: referrer[0],
       referralsCount: new BigNumber(referralsCount[0]._hex).toString(),
-      totalReferralCommissions: getBalanceNumber(new BigNumber(totalReferralCommissions[0]._hex), 18),
     }
   }
+
+  export default fetchReferralInfo

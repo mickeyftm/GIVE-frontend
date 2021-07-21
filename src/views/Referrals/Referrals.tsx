@@ -14,7 +14,7 @@ import { getReferralAddress } from 'utils/addressHelpers'
 import { useReferralContract } from 'hooks/useContract'
 import {Referral, State, ReferralState} from "state/types"
 import { getReferralContract } from 'utils/contractHelpers'
-import {fetchReferralUserInfo, recordReferrer, useReferralData} from 'utils/callHelpers'
+import {recordReferrer, useReferralData} from 'utils/callHelpers'
 import { useAppDispatch } from 'state'
 import useRefresh from 'hooks/useRefresh'
 import web3, { getWeb3NoAccount, getWeb3WithArchivedNodeProvider } from 'utils/web3'
@@ -25,13 +25,6 @@ import { getReferralInfo } from 'state/referral'
 import CopyToClipboard from './CopyToClipboard'
 import ReferralCounter from './components/ReferralCounter'
 
-const initialState: ReferralState = {
-  userDataLoaded: true,
-  data: {
-    referrer: '', 
-    referralsCount: 0
-  }
-}
 
 const ControlContainer = styled.div`
   display: flex;
@@ -82,27 +75,10 @@ const getReferralCount = async(account, myContract) => {
 }
 */
 
-const blockSlice = createSlice({
-  name: 'Referral',
-  initialState,
-  reducers: {
-    setBlock: (state, action) => {
-      state.data = action.payload
-      // alert(state.data.referralsCount)
-    },
-  },
-})
-
-const {setBlock} = blockSlice.actions
-
-
-
-
 const Referrals: React.FC = () => {
 
   const { account } = useWeb3React()
   const { t } = useTranslation()
-  const myContract = getReferralContract()
   const dispatch = useAppDispatch()
 
   useEffect(() => {

@@ -12,7 +12,6 @@ import { getBalanceAmount } from 'utils/formatBalance'
 import { BIG_ONE, BIG_ZERO } from 'utils/bigNumber'
 import useRefresh from 'hooks/useRefresh'
 import { filterFarmsByQuoteToken } from 'utils/farmsPriceHelpers'
-import { fetchReferralUserInfo } from 'utils/callHelpers'
 import {
   fetchFarmsPublicDataAsync,
   fetchPoolsPublicDataAsync,
@@ -31,6 +30,8 @@ import { getCanClaim } from './predictions/helpers'
 import { transformPool } from './pools/helpers'
 import { fetchPoolsStakingLimitsAsync } from './pools'
 import { fetchFarmUserDataAsync, nonArchivedFarms } from './farms'
+import fetchReferralInfo from './referral/fetchReferralInfo'
+
 
 export const usePollFarmsData = (includeArchive = false) => {
   const dispatch = useAppDispatch()
@@ -88,7 +89,7 @@ export const useReferral = async(account, referrer) => {
   if (account === referrer) {
     return
   }
-  const referralUserInfo = await fetchReferralUserInfo(account)
+  const referralUserInfo = await fetchReferralInfo(account)
   if (referralUserInfo.referrer === '0x0000000000000000000000000000000000000000') {
     localStorage.setItem('referrer', referrer)
   }
