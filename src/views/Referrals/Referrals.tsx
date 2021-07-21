@@ -14,17 +14,24 @@ import { getReferralAddress } from 'utils/addressHelpers'
 import { useReferralContract } from 'hooks/useContract'
 import {Referral, State, ReferralState} from "state/types"
 import { getReferralContract } from 'utils/contractHelpers'
-import {recordReferrer} from 'utils/callHelpers'
+import {fetchReferralUserInfo, recordReferrer, useReferralData} from 'utils/callHelpers'
 import { useAppDispatch } from 'state'
 import useRefresh from 'hooks/useRefresh'
 import web3, { getWeb3NoAccount, getWeb3WithArchivedNodeProvider } from 'utils/web3'
 import { ReferralIfoData} from 'hooks/ifo/types'
 import makeBatchRequest from 'utils/makeBatchRequest'
+import { createSlice } from '@reduxjs/toolkit'
+import { getReferralInfo } from 'state/referral'
 import CopyToClipboard from './CopyToClipboard'
-/*
+import ReferralCounter from './components/ReferralCounter'
+
 const initialState: ReferralState = {
-  userDataLoaded: true
-} */
+  userDataLoaded: true,
+  data: {
+    referrer: '', 
+    referralsCount: 0
+  }
+}
 
 const ControlContainer = styled.div`
   display: flex;
@@ -69,106 +76,42 @@ export const getUserDataInReferral = async (address) => {
 }
 
 /*
-// fetch referral data from smart contract; and setstate
-const useGetReferralIfoData = (referral: Referral): ReferralIfoData => {
-  const { fastRefresh } = useRefresh()
-  const [state, setState] = useState<ReferralIfoData>({
-    poolBasic: {
-      amountTokenCommittedInLP: BIG_ZERO,
-      offeringAmountInToken: BIG_ZERO,
-      refundingAmountInLP: BIG_ZERO,
-      taxAmountInLP: BIG_ZERO,
-      hasClaimed: false,
-      isPendingTx: false,
-    },
-    poolUnlimited: {
-      amountTokenCommittedInLP: BIG_ZERO,
-      offeringAmountInToken: BIG_ZERO,
-      refundingAmountInLP: BIG_ZERO,
-      taxAmountInLP: BIG_ZERO,
-      hasClaimed: false,
-      isPendingTx: false,
-    },
-  })
-
-  const { address, referralsCount } = referral
-
-  const { account } = useWeb3React()
-  const contract = useReferralContract()
-  const referralCount = getUserDataInReferral(address)
-
-  const setPendingTx = (status: boolean, poolId: PoolIds) =>
-    setState((prevState) => ({
-      ...prevState,
-      [poolId]: {
-        ...prevState[poolId],
-        isPendingTx: status,
-      },
-    }))
-
-  const setIsClaimed = (poolId: PoolIds) => {
-    setState((prevState) => ({
-      ...prevState,
-      [poolId]: {
-        ...prevState[poolId],
-        hasClaimed: true,
-      },
-    }))
-  }
-
-  const fetchReferrerData = async () => {
-    const [referrer] = await makeBatchRequest([
-      contract.methods.getReferrer(account).call,
-    ])
-  }
-
-  useEffect(() => {
-    if (account) {
-      fetchIfoData()
-    }
-  }, [account, fetchReferrerData, fastRefresh])
-
-  return { ...state, referralCount, contract, setPendingTx, setIsClaimed, fetchIfoData }
-} */ 
-
-export const useReferrals = (): ReferralState => {
-  const referrals = useSelector((state: State) => state.referrals)
-  return referrals
-}
-
-// fetch referral with a user address
-export const useReferralFromAddress = (address): Referral => {
-  try{
-  const referral = useSelector((state: State) => state.referrals.data.find((f) => f.address === address))
-  return referral}
-  catch (error)  {
-    console.error(`${error}`)
-    return null
-  }
-}
-
-const useReferralUser = (address) => {
-  const referral = useReferralFromAddress(address)
-  return {
-    address: referral ? new BigNumber(referral.address) : BIG_ZERO,
-    referralsCount: referral ? new BigNumber(referral.referralsCount) : BIG_ZERO,
-    referrer: referral ? new BigNumber(referral.referrer) : BIG_ZERO,
-  }
-}
-
 const getReferralCount = async(account, myContract) => {
   const myReferrer = await myContract.methods.referralsCount(account).call() 
   return myReferrer 
 }
+*/
+
+const blockSlice = createSlice({
+  name: 'Referral',
+  initialState,
+  reducers: {
+    setBlock: (state, action) => {
+      state.data = action.payload
+      // alert(state.data.referralsCount)
+    },
+  },
+})
+
+const {setBlock} = blockSlice.actions
+
+
+
 
 const Referrals: React.FC = () => {
-  const parser = document.createElement('a');
-parser.href = "http://example.com:3000/pathname/?search=test#hash";
-  // alert(window.location.pathname)
-  web3.eth.defaultAccount = web3.eth.accounts[0] 
+
   const { account } = useWeb3React()
   const { t } = useTranslation()
   const myContract = getReferralContract()
+  const dispatch = useAppDispatch()
+
+  useEffect(() => {
+    if (account) {
+      dispatch(getReferralInfo(account))
+    }
+  }, [dispatch, account])
+
+
   const ReferralAddress = ({ isRegistered }) => {
     if (isRegistered) {
       return (
@@ -216,6 +159,8 @@ parser.href = "http://example.com:3000/pathname/?search=test#hash";
       <Page>
         <ControlContainer>
           <ReferralButton isRegistered={account} />
+          {t('Your total referral is ')}
+          <ReferralCounter/>
         </ControlContainer>
       </Page>
     </>

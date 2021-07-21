@@ -12,6 +12,7 @@ import { getBalanceAmount } from 'utils/formatBalance'
 import { BIG_ONE, BIG_ZERO } from 'utils/bigNumber'
 import useRefresh from 'hooks/useRefresh'
 import { filterFarmsByQuoteToken } from 'utils/farmsPriceHelpers'
+import { fetchReferralUserInfo } from 'utils/callHelpers'
 import {
   fetchFarmsPublicDataAsync,
   fetchPoolsPublicDataAsync,
@@ -83,14 +84,30 @@ export const usePollBlockNumber = () => {
 
 //  Referral 
 
-export const useReferral= (address: number) => {
-  const referral = useSelector((state: State) => state.referrals.data[address])
-  const dispatch = useAppDispatch()
-  useEffect(() => {
-    dispatch(fetchTeam(address))
-  }, [address, dispatch])
+export const useReferral = async(account, referrer) => {
+  if (account === referrer) {
+    return
+  }
+  const referralUserInfo = await fetchReferralUserInfo(account)
+  if (referralUserInfo.referrer === '0x0000000000000000000000000000000000000000') {
+    localStorage.setItem('referrer', referrer)
+  }
+}
 
-  return referral
+export const fetchReferrer = () => {
+  const search = window.location.search
+  const referrer = new URLSearchParams(search).get('ref')
+  return referrer
+}
+
+export const useFetchReferral = () => {
+  const {account} = useWeb3React()
+  const referrer = fetchReferrer()
+  useEffect(() => {
+    if (account && referrer) {
+      useReferral(account, referrer)
+    }
+  }, [account,referrer])
 }
 
 // Farms

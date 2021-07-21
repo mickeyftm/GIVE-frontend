@@ -85,6 +85,7 @@ export const farmsSlice = createSlice({
       const loadArchivedFarmsData = action.payload
       state.loadArchivedFarmsData = loadArchivedFarmsData
     },
+    
   },
   extraReducers: (builder) => {
     // Update farms with live data

@@ -64,14 +64,12 @@ export interface Profile {
 }
 
 export interface Referral {
-  map: any
-  address: string
-  referralsCount: number
   referrer: string
+  referralsCount: number
 }
 
 export interface ReferralState {
-  data: Referral[]
+  data: Referral
   userDataLoaded: boolean
 }
 

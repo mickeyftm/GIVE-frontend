@@ -1,13 +1,16 @@
 import BigNumber from 'bignumber.js'
 import { DEFAULT_GAS_LIMIT, DEFAULT_TOKEN_DECIMAL } from 'config'
 import { ethers } from 'ethers'
+import { useSelector } from 'react-redux'
 import { Pair, TokenAmount, Token } from '@pancakeswap-libs/sdk'
 import { getLpContract, getMasterchefContract } from 'utils/contractHelpers'
 import farms from 'config/constants/farms'
-import { getAddress, getCakeAddress } from 'utils/addressHelpers'
+import { getAddress, getCakeAddress, getReferralAddress } from 'utils/addressHelpers'
 import tokens from 'config/constants/tokens'
 import pools from 'config/constants/pools'
 import sousChefABI from 'config/abi/sousChef.json'
+import {Referral, State, ReferralState} from "state/types"
+import referralAbi from "config/abi/referral.json"
 import { multicallv2 } from './multicall'
 import { getWeb3WithArchivedNodeProvider } from './web3'
 import { getBalanceAmount } from './formatBalance'
@@ -54,6 +57,35 @@ export const recordReferrer = async (referralContract, account, referrer) => {
       return tx.transactionHash
     })
 }
+
+export const fetchReferralUserInfo = async (account: string) => {
+  const referralAddress = getReferralAddress()
+
+  const calls = [
+    {
+      address: referralAddress,
+      name: 'getReferrer',
+      params: [account],
+    },
+    {
+      address: referralAddress,
+      name: 'referralsCount',
+      params: [account],
+    }
+  ]
+
+  const [referrer, referralsCount] = await multicallv2(referralAbi, calls)
+  return {
+    referrer: referrer[0],
+    referralsCount: new BigNumber(referralsCount[0]).toString(),
+  }
+}
+
+// fetch referral 
+export const useReferralData = async () => {
+  const data = await useSelector((state: State) => state.referrals.data)
+  return data
+} 
 
 export const checkReferrer = async (referralContract, account) => {
   return referralContract.methods.getReferrer(account).call()
