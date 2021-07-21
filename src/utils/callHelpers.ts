@@ -61,7 +61,7 @@ export const recordReferrer = async (referralContract, account, referrer) => {
 
 // fetch referral 
 export const useReferralData = async () => {
-  const data = await useSelector((state: State) => state.referrals.data)
+  const data = useSelector((state: State) => state.referrals.data)
   return data
 } 
 
