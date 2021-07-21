@@ -136,7 +136,7 @@ const Referrals: React.FC = () => {
         <ControlContainer>
           <ReferralButton isRegistered={account} />
           {t('Your total referral is ')}
-          <ReferralCounter/>
+
         </ControlContainer>
       </Page>
     </>

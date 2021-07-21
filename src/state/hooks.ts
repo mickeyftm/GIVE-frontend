@@ -87,7 +87,7 @@ export const usePollBlockNumber = () => {
 
 export const useReferral = async(account, referrer) => {
   if (account === referrer) {
-    return
+    return '0x0000000000000000000000000000000000000000'
   }
   const referralUserInfo = await fetchReferralInfo(account)
   if (referralUserInfo.referrer === '0x0000000000000000000000000000000000000000') {
