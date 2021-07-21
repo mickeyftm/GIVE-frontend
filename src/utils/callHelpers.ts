@@ -49,6 +49,7 @@ export const stake = async (masterChefContract, pid, amount, account, tokenDecim
     })
 }
 
+
 // input: address user, address referrer
 export const recordReferrer = async (referralContract, account, referrer) => {
   return referralContract.methods
@@ -69,6 +70,24 @@ export const useReferralData = async () => {
 export const checkReferrer = async (referralContract, account) => {
   return referralContract.methods.getReferrer(account).call()
 } */
+
+/*
+const getReferAdd() {
+  const referAdd = localStorage.getItem('referral')
+  if (referral) {
+    return referral
+  }
+  return 
+} */
+
+export const useReferralRecord = (referralContract: Contract, referrer: string) => {
+  const { account } = useWeb3React()
+  const toRecord = useCallback(async () => {
+    const tx = await referralContract.methods.recordReferrer(account, referrer).send({ from: account })
+    return tx
+  }, [account, referrer])
+  return toRecord
+}
 
 export const getReferrerAddress = () => {
   const params = new URLSearchParams(document.location.search.substring(1))
