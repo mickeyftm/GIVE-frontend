@@ -49,6 +49,7 @@ const App: React.FC = () => {
   usePollCoreFarmData()
   useFetchReferral()
 
+
   return (
     <Router history={history}>
       <ResetCSS />

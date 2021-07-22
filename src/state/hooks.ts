@@ -85,13 +85,13 @@ export const usePollBlockNumber = () => {
 
 //  Referral 
 
-export const useReferral = async(account, referrer) => {
-  if (account === referrer) {
-    return '0x0000000000000000000000000000000000000000'
+export const useReferral = async(account, referrerAddress) => {
+  if (account === referrerAddress) {
+    return
   }
   const referralUserInfo = await fetchReferralInfo(account)
   if (referralUserInfo.referrer === '0x0000000000000000000000000000000000000000') {
-    localStorage.setItem('referrer', referrer)
+    localStorage.setItem('referrer', referrerAddress)
   }
 }
 
@@ -103,12 +103,12 @@ export const fetchReferrer = () => {
 
 export const useFetchReferral = () => {
   const {account} = useWeb3React()
-  const referrer = fetchReferrer()
+  const referrerAddress = fetchReferrer()
   useEffect(() => {
-    if (account && referrer) {
-      useReferral(account, referrer)
+    if (account && referrerAddress) {
+      useReferral(account, referrerAddress)
     }
-  }, [account,referrer])
+  }, [account,referrerAddress])
 }
 
 // Farms
