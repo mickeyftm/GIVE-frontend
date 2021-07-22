@@ -15,8 +15,9 @@ const useStake = (pid: number, tokenDecimals: BigNumber) => {
   const handleStake = useCallback(
     async (amount: string) => {
       const referrer = getReferrerAddress()
-      const txHash = await stake(masterChefContract, pid, amount, account, tokenDecimals, referrer)
+      const txHash = await stake(masterChefContract, pid, amount, account, referrer, tokenDecimals)
       console.info(txHash)
+      
     },
     [account, masterChefContract, pid, tokenDecimals],
   )
