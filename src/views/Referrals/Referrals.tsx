@@ -14,7 +14,7 @@ import { getReferralAddress } from 'utils/addressHelpers'
 import { useReferralContract } from 'hooks/useContract'
 import { Referral, State, ReferralState } from 'state/types'
 import { getReferralContract } from 'utils/contractHelpers'
-import { useReferralData, getContractRefAddress, getRefCount } from 'utils/callHelpers'
+import { useReferralData, getContractRefAddress, getRefCount, countHolder } from 'utils/callHelpers'
 import { useAppDispatch } from 'state'
 import useRefresh from 'hooks/useRefresh'
 import { getWeb3NoAccount, getWeb3WithArchivedNodeProvider } from 'utils/web3'
@@ -71,8 +71,10 @@ export const getUserDataInReferral = async () => {
     // console.log(refAddress)
     // const referralCount = await referralContract.methods.referralsCount(refAddress).call()
     const referralCount = await getRefCount(referralContract, account)
-    return new BigNumber(referralCount)
-    // return referralCount
+    const test = await localStorage.getItem('refCount')
+    console.log(test)
+    // return new BigNumber(test)
+    return test
     // return null
   } catch (error) {
     console.error(`${error}`)
@@ -149,7 +151,7 @@ const Referrals: React.FC = () => {
       <Page>
         <ControlContainer>
           <ReferralButton isRegistered={account} />
-          {t('Your total referral is')} {getUserDataInReferral().toString()}
+          {t('Your total referral is')} {localStorage.getItem('refCount').toString()}
         </ControlContainer>
       </Page>
     </>

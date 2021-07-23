@@ -51,12 +51,22 @@ export const getContractRefAddress = async (referralContract, account) => {
 }
 
 export const getRefCount = async (referralContract, refAdress) => {
-  return referralContract.methods
+  referralContract.methods
     .referralsCount(refAdress)
     .call()
     .then((result) => {
+      localStorage.setItem('refCount', result)
+      // return countHolder(result)
       console.log(result)
     })
+}
+
+export const countHolder = async (number) => {
+  return number
+}
+
+export const countUpdate = async () => {
+  return countHolder
 }
 
 /*
