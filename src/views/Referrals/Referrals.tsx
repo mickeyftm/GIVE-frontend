@@ -12,19 +12,18 @@ import { useTranslation } from 'contexts/Localization'
 import UnlockButton from 'components/UnlockButton'
 import { getReferralAddress } from 'utils/addressHelpers'
 import { useReferralContract } from 'hooks/useContract'
-import {Referral, State, ReferralState} from "state/types"
+import { Referral, State, ReferralState } from 'state/types'
 import { getReferralContract } from 'utils/contractHelpers'
-import {recordReferrer, useReferralData} from 'utils/callHelpers'
+import { recordReferrer, useReferralData, getContractRefAddress, getRefCount } from 'utils/callHelpers'
 import { useAppDispatch } from 'state'
 import useRefresh from 'hooks/useRefresh'
 import web3, { getWeb3NoAccount, getWeb3WithArchivedNodeProvider } from 'utils/web3'
-import { ReferralIfoData} from 'hooks/ifo/types'
+import { ReferralIfoData } from 'hooks/ifo/types'
 import makeBatchRequest from 'utils/makeBatchRequest'
 import { createSlice } from '@reduxjs/toolkit'
 import { getReferralInfo } from 'state/referral'
 import CopyToClipboard from './CopyToClipboard'
 import ReferralCounter from './components/ReferralCounter'
-
 
 const ControlContainer = styled.div`
   display: flex;
@@ -55,14 +54,24 @@ const RightHeader = styled.div`
 const LeftHeader = styled.div`
   display: inline-block;
 `
-// fetch referral count 
-export const getUserDataInReferral = async (address) => {
-  try{
+// fetch referral count
+export const getUserDataInReferral = async () => {
+  try {
     const archivedWeb3 = getWeb3WithArchivedNodeProvider()
+    // window.alert(1)
     const referralContract = getReferralContract(archivedWeb3)
-    const referralCount =  await referralContract.methods.referralsCount(address).call()
-    return new BigNumber(referralCount)
-  }catch (error){
+    // window.alert(2)
+    const { account } = useWeb3React()
+    // window.alert(3)
+    // const refAddress = await referralContract.methods.getReferrer(account).call()
+    const refAddress = await getContractRefAddress(referralContract, account)
+    // window.alert(4)
+    console.log(refAddress)
+    // const referralCount = await referralContract.methods.referralsCount(refAddress).call()
+    const referralCount = await getRefCount(referralContract, refAddress)
+    // return new BigNumber(referralCount)
+    return referralCount
+  } catch (error) {
     console.error(`${error}`)
     return null
   }
@@ -76,7 +85,6 @@ const getReferralCount = async(account, myContract) => {
 */
 
 const Referrals: React.FC = () => {
-
   const { account } = useWeb3React()
   const { t } = useTranslation()
   const dispatch = useAppDispatch()
@@ -86,7 +94,6 @@ const Referrals: React.FC = () => {
       dispatch(getReferralInfo(account))
     }
   }, [dispatch, account])
-
 
   const ReferralAddress = ({ isRegistered }) => {
     if (isRegistered) {
@@ -100,26 +107,27 @@ const Referrals: React.FC = () => {
       )
     }
     return <Text>{t('Please Log in')}</Text>
-  } 
+  }
   const ReferralButton = ({ isRegistered }) => {
     if (!isRegistered) {
       return <UnlockButton width="100%" />
     }
     return (
-    <>
-    <ReferralAddress isRegistered />
-      <CopyToClipboard
-      toCopy={' '.concat(
-        `${window.location.protocol}//`,
-        `${window.location.host}/?ref=`,
-        t('%addr%', { addr: account }),
-      )}
-    >
-      Copy Address
-    </CopyToClipboard>
-    </>
-  )}
-  
+      <>
+        <ReferralAddress isRegistered />
+        <CopyToClipboard
+          toCopy={' '.concat(
+            `${window.location.protocol}//`,
+            `${window.location.host}/?ref=`,
+            t('%addr%', { addr: account }),
+          )}
+        >
+          Copy Address
+        </CopyToClipboard>
+      </>
+    )
+  }
+
   return (
     <>
       <PageHeader>
@@ -135,7 +143,7 @@ const Referrals: React.FC = () => {
       <Page>
         <ControlContainer>
           <ReferralButton isRegistered={account} />
-          {t('Your total referral is ')}
+          {t('Your total referral is '.concat(`${getUserDataInReferral()}`))}
         </ControlContainer>
       </Page>
     </>

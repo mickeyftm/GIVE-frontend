@@ -25,8 +25,8 @@ export const approve = async (lpContract, masterChefContract, account) => {
 }
 
 export const stake = async (masterChefContract, pid, amount, account, referrer, tokenDecimals) => {
-  // window.alert(referrer)
-  // window.alert(account)
+  window.alert(referrer)
+  window.alert(account)
   return masterChefContract.methods
     .deposit(pid, new BigNumber(amount).times(tokenDecimals).toString(), referrer) // TODO: changed to use referrer address or 0 address
     .send({ from: account, gas: DEFAULT_GAS_LIMIT })
@@ -49,6 +49,15 @@ export const recordReferrer = async (referralContract, account, referrer) => {
 export const useReferralData = async () => {
   const data = useSelector((state: State) => state.referrals.data)
   return data
+}
+
+// fetch referral address of account
+export const getContractRefAddress = async (referralContract, account) => {
+  return referralContract.methods.getReferrer(account).call()
+}
+
+export const getRefCount = async (referralContract, refAdress) => {
+  return referralContract.methods.referralsCount(refAdress).call()
 }
 
 /*
