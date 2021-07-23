@@ -1,6 +1,7 @@
 import BigNumber from 'bignumber.js'
 import { Contract } from 'web3-eth-contract'
 import { IfoStatus, PoolIds } from 'config/constants/types'
+import { ReferralState } from 'state/types'
 
 // PoolCharacteristics retrieved from the contract
 export interface PoolCharacteristics {
@@ -26,6 +27,12 @@ export interface PublicIfoData {
   fetchIfoData: () => void
   [PoolIds.poolBasic]?: PoolCharacteristics
   [PoolIds.poolUnlimited]: PoolCharacteristics
+}
+
+export interface ReferralIfoData {
+  referralCount: BigNumber
+  referrer?: string  
+  contract: Contract
 }
 
 // User specific pool characteristics

@@ -1,13 +1,18 @@
 import BigNumber from 'bignumber.js'
 import { DEFAULT_GAS_LIMIT, DEFAULT_TOKEN_DECIMAL } from 'config'
-import { ethers } from 'ethers'
+import { Contract, ethers } from 'ethers'
+import { useSelector } from 'react-redux'
 import { Pair, TokenAmount, Token } from '@pancakeswap-libs/sdk'
 import { getLpContract, getMasterchefContract } from 'utils/contractHelpers'
 import farms from 'config/constants/farms'
-import { getAddress, getCakeAddress } from 'utils/addressHelpers'
+import { getAddress, getCakeAddress, getReferralAddress } from 'utils/addressHelpers'
 import tokens from 'config/constants/tokens'
 import pools from 'config/constants/pools'
 import sousChefABI from 'config/abi/sousChef.json'
+import { Referral, State, ReferralState } from 'state/types'
+import referralAbi from 'config/abi/referral.json'
+import { useCallback } from 'react'
+import { useWeb3React } from '@web3-react/core'
 import { multicallv2 } from './multicall'
 import { getWeb3WithArchivedNodeProvider } from './web3'
 import { getBalanceAmount } from './formatBalance'
@@ -19,23 +24,29 @@ export const approve = async (lpContract, masterChefContract, account) => {
     .send({ from: account })
 }
 
-export const stake = async (masterChefContract, pid, amount, account, tokenDecimals) => {
-  // if (pid === 0)
-  // {
-  //   return masterChefContract.methods
-  //     .enterStaking(new BigNumber(amount).times(DEFAULT_TOKEN_DECIMAL).toString()) // TODO: change to include referer
-  //     .send({ from: account, gas: DEFAULT_GAS_LIMIT })
-  //     .on('transactionHash', (tx) => {
-  //       return tx.transactionHash
-  //     })
-  // }
-
+export const stake = async (masterChefContract, pid, amount, account, referrer, tokenDecimals) => {
   return masterChefContract.methods
-    .deposit(pid, new BigNumber(amount).times(tokenDecimals).toString(), '0x0000000000000000000000000000000000000000') // TODO: change to referer right now using own account as referrer
+    .deposit(pid, new BigNumber(amount).times(tokenDecimals).toString(), referrer) // TODO: changed to use referrer address or 0 address
     .send({ from: account, gas: DEFAULT_GAS_LIMIT })
     .on('transactionHash', (tx) => {
       return tx.transactionHash
     })
+}
+
+// fetch referral
+export const useReferralData = () => {
+  const data = useSelector((state: State) => state.referrals.data)
+  console.log(data?.referralsCount)
+  return data
+}
+
+
+export const getReferrerAddress = () => {
+  const referAdd = localStorage.getItem('referrer')
+  if (referAdd) {
+    return referAdd
+  }
+  return '0x0000000000000000000000000000000000000000'
 }
 
 export const sousStake = async (sousChefContract, amount, decimals = 18, account) => {
@@ -106,8 +117,16 @@ export const harvest = async (masterChefContract, pid, account) => {
   //     })
   // }
 
+  // Gets the referrer address, if there isnt one, use the 0 address
+  const refCheck = getReferrerAddress()
+  let refAdd = null
+  if (refCheck != null) {
+    refAdd = refCheck
+  } else {
+    refAdd = '0x0000000000000000000000000000000000000000'
+  }
   return masterChefContract.methods
-    .deposit(pid, '0', '0x0000000000000000000000000000000000000000') // TODO: change account to referer
+    .deposit(pid, '0', refAdd) // TODO: changed to use referrer address or 0 address
     .send({ from: account, gas: DEFAULT_GAS_LIMIT })
     .on('transactionHash', (tx) => {
       return tx.transactionHash

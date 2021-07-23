@@ -1,8 +1,7 @@
 import { Address, ReferralConfig } from "config/constants/types";
 
 export interface ReferralProps extends ReferralConfig {
-    referralCount?: number
-    userReferrerInformation?: Address
+    referralsCount?: number
     isLoading?: boolean
     onDismiss?: () => void
     onReferredSuccess?: () => void

@@ -6,17 +6,26 @@ import { useTranslation } from 'contexts/Localization'
 import useTheme from 'hooks/useTheme'
 import useAuth from 'hooks/useAuth'
 import { usePriceCakeBusd, useProfile } from 'state/hooks'
+import { getReferralContract } from 'utils/contractHelpers'
 import config from './config'
 
 const Menu = (props) => {
   const { account } = useWeb3React()
   const { login, logout } = useAuth()
+  const myReferralContract = getReferralContract()
   const { isDark, toggleTheme } = useTheme()
   const cakePriceUsd = usePriceCakeBusd()
   const { profile } = useProfile()
   const { currentLanguage, setLanguage, t } = useTranslation()
 
+  const getReferrerAddress = () => {
+  const params = new URLSearchParams(document.location.search.substring(1))
+  const name = params.get("ref")
+  return name
+}
+
   return (
+    <>
     <UikitMenu
       account={account}
       login={login}
@@ -37,6 +46,7 @@ const Menu = (props) => {
       }}
       {...props}
     />
+    </>
   )
 }
 

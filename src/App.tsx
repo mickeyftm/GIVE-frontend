@@ -5,7 +5,7 @@ import { Router, Redirect, Route, Switch } from 'react-router-dom'
 import { ResetCSS } from '@pancakeswap/uikit'
 import BigNumber from 'bignumber.js'
 import useEagerConnect from 'hooks/useEagerConnect'
-import { usePollCoreFarmData, useFetchProfile, usePollBlockNumber } from 'state/hooks'
+import { usePollCoreFarmData, useFetchProfile, usePollBlockNumber, useFetchReferral } from 'state/hooks'
 import GlobalStyle from './style/Global'
 import Menu from './components/Menu'
 import SuspenseWithChunkError from './components/SuspenseWithChunkError'
@@ -19,7 +19,7 @@ import history from './routerHistory'
 // Only pool is included in the main bundle because of it's the most visited page
 // removed unused pages
 const Home = lazy(() => import('./views/Home'))
-const Referral = lazy(() => import('./views/Referral'))
+const Referral = lazy(() => import('./views/Referrals'))
 const Farms = lazy(() => import('./views/Farms'))
 const Farms2 = lazy(() => import('./views/PoolFarms'))
 // const Lottery = lazy(() => import('./views/Lottery'))
@@ -47,6 +47,8 @@ const App: React.FC = () => {
   useEagerConnect()
   useFetchProfile()
   usePollCoreFarmData()
+  useFetchReferral()
+
 
   return (
     <Router history={history}>

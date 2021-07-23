@@ -30,6 +30,8 @@ import { getCanClaim } from './predictions/helpers'
 import { transformPool } from './pools/helpers'
 import { fetchPoolsStakingLimitsAsync } from './pools'
 import { fetchFarmUserDataAsync, nonArchivedFarms } from './farms'
+import fetchReferralInfo from './referral/fetchReferralInfo'
+
 
 export const usePollFarmsData = (includeArchive = false) => {
   const dispatch = useAppDispatch()
@@ -83,14 +85,30 @@ export const usePollBlockNumber = () => {
 
 //  Referral 
 
-export const useReferral= (id: number) => {
-  const referral: ReferralConfig = useSelector((state: State) => state.referral.data[id])
-  const dispatch = useAppDispatch()
-  useEffect(() => {
-    dispatch(fetchTeam(id))
-  }, [id, dispatch])
+export const useReferral = async(account, referrerAddress) => {
+  if (account === referrerAddress) {
+    return
+  }
+  const referralUserInfo = await fetchReferralInfo(account)
+  if (referralUserInfo.referrer === '0x0000000000000000000000000000000000000000') {
+    localStorage.setItem('referrer', referrerAddress)
+  }
+}
 
-  return referral
+export const fetchReferrer = () => {
+  const search = window.location.search
+  const referrer = new URLSearchParams(search).get('ref')
+  return referrer
+}
+
+export const useFetchReferral = () => {
+  const {account} = useWeb3React()
+  const referrerAddress = fetchReferrer()
+  useEffect(() => {
+    if (account && referrerAddress) {
+      useReferral(account, referrerAddress)
+    }
+  }, [account,referrerAddress])
 }
 
 // Farms

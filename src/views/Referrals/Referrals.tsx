@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import referralAbi from 'config/abi/referral.json'
 import BigNumber from 'bignumber.js'
+import { BIG_ZERO } from 'utils/bigNumber'
+import { useSelector } from 'react-redux'
 import { useWeb3React } from '@web3-react/core'
 import PageHeader from 'components/PageHeader'
 import Page from 'components/layout/Page'
@@ -10,8 +12,18 @@ import { useTranslation } from 'contexts/Localization'
 import UnlockButton from 'components/UnlockButton'
 import { getReferralAddress } from 'utils/addressHelpers'
 import { useReferralContract } from 'hooks/useContract'
+import {Referral, State, ReferralState} from "state/types"
 import { getReferralContract } from 'utils/contractHelpers'
+import { useAppDispatch } from 'state'
+import useRefresh from 'hooks/useRefresh'
+import web3, { getWeb3NoAccount, getWeb3WithArchivedNodeProvider } from 'utils/web3'
+import { ReferralIfoData} from 'hooks/ifo/types'
+import makeBatchRequest from 'utils/makeBatchRequest'
+import { createSlice } from '@reduxjs/toolkit'
+import { getReferralInfo } from 'state/referral'
 import CopyToClipboard from './CopyToClipboard'
+import ReferralCounter from './components/ReferralCounter'
+
 
 const ControlContainer = styled.div`
   display: flex;
@@ -42,20 +54,42 @@ const RightHeader = styled.div`
 const LeftHeader = styled.div`
   display: inline-block;
 `
-
-
-const referralContract = getReferralContract()
-
-const getReferrer = async () => {
-  referralContract.methods.getReferrer().call()
+// fetch referral count 
+export const getUserDataInReferral = async (address) => {
+  try{
+    const archivedWeb3 = getWeb3WithArchivedNodeProvider()
+    const referralContract = getReferralContract(archivedWeb3)
+    const referralCount =  await referralContract.methods.referralsCount(address).call()
+    return new BigNumber(referralCount)
+  }catch (error){
+    console.error(`${error}`)
+    return null
+  }
 }
 
 
-const Referral: React.FC = () => {
+const getReferralCount = async(account, myContract) => {
+  const myReferrer = await myContract.methods.referralsCount(account).call() 
+  return myReferrer 
+}
+
+
+const Referrals: React.FC = () => {
+
   const { account } = useWeb3React()
-
   const { t } = useTranslation()
+  const dispatch = useAppDispatch()
+const referContract =  getReferralContract()
 
+  useEffect(() => {
+    if (account) {
+      dispatch(getReferralInfo(account))
+    }
+  }, [dispatch, account])
+
+const count = async () => {
+  const test = await getReferralCount(account,referContract )
+return test }
   const ReferralAddress = ({ isRegistered }) => {
     if (isRegistered) {
       return (
@@ -102,13 +136,12 @@ const Referral: React.FC = () => {
         </LeftHeader>
       </PageHeader>
       <Page>
-        {/* <ControlContainer> */}
-        {/*  <ReferralButton isRegistered={account} /> */}
-        {/* */}
-        {/* </ControlContainer> */}
+        <ControlContainer>
+          <ReferralButton isRegistered={account} />
+        </ControlContainer>
       </Page>
     </>
   )
 }
 
-export default Referral
+export default Referrals

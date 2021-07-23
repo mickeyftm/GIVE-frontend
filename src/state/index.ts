@@ -8,6 +8,7 @@ import teamsReducer from './teams'
 import achievementsReducer from './achievements'
 import blockReducer from './block'
 import collectiblesReducer from './collectibles'
+import referralsReducer from './referral'
 
 const store = configureStore({
   devTools: process.env.NODE_ENV !== 'production',
@@ -19,6 +20,7 @@ const store = configureStore({
     predictions: predictionsReducer,
     profile: profileReducer,
     teams: teamsReducer,
+    referral: referralsReducer,
     collectibles: collectiblesReducer,
   },
 })

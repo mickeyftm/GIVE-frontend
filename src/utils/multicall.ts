@@ -17,7 +17,7 @@ interface MulticallOptions {
   requireSuccess?: boolean
 }
 
-const multicall = async (abi: any[], calls: Call[], options: MulticallOptions = {}) => {
+export const multicall = async (abi: any[], calls: Call[], options: MulticallOptions = {}) => {
   try {
     const web3 = options.web3 || getWeb3NoAccount()
     const multi = new web3.eth.Contract(MultiCallAbi as unknown as AbiItem, getMulticallAddress())
@@ -29,7 +29,7 @@ const multicall = async (abi: any[], calls: Call[], options: MulticallOptions = 
 
     return res
   } catch (error) {
-    throw new Error(error)
+    throw new Error('error')
   }
 }
 
