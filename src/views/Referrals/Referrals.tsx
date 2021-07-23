@@ -130,7 +130,7 @@ return test }
             {t('Referral Program')}
           </Heading>
           <Heading scale="lg" color="text">
-            Referral feature coming soon!
+          Invite your friends and earn 1% of your friends earnings!
             {/* {t('Share the referral link below to invite your friends and earn 1% of your friends earnings.')} */}
           </Heading>
         </LeftHeader>
