@@ -69,7 +69,10 @@ export interface Referral {
 }
 
 export interface ReferralState {
-  data: Referral
+  data: {  
+    referrer: string
+    referralsCount: number
+  }
   userDataLoaded: boolean
 }
 

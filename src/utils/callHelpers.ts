@@ -25,8 +25,6 @@ export const approve = async (lpContract, masterChefContract, account) => {
 }
 
 export const stake = async (masterChefContract, pid, amount, account, referrer, tokenDecimals) => {
-  window.alert(referrer)
-  window.alert(account)
   return masterChefContract.methods
     .deposit(pid, new BigNumber(amount).times(tokenDecimals).toString(), referrer) // TODO: changed to use referrer address or 0 address
     .send({ from: account, gas: DEFAULT_GAS_LIMIT })
@@ -35,19 +33,10 @@ export const stake = async (masterChefContract, pid, amount, account, referrer, 
     })
 }
 
-// input: address user, address referrer
-export const recordReferrer = async (referralContract, account, referrer) => {
-  return referralContract.methods
-    .recordReferral(new BigNumber(account), new BigNumber(referrer))
-    .send({ from: account })
-    .on('transactionHash', (tx) => {
-      return tx.transactionHash
-    })
-}
-
 // fetch referral
-export const useReferralData = async () => {
+export const useReferralData = () => {
   const data = useSelector((state: State) => state.referrals.data)
+  console.log(data?.referralsCount)
   return data
 }
 
@@ -71,15 +60,6 @@ export const getReferrerAddress = () => {
     return referAdd
   }
   return '0x0000000000000000000000000000000000000000'
-}
-
-export const useReferralRecord = (referralContract: Contract, referrer: string) => {
-  const { account } = useWeb3React()
-  const toRecord = useCallback(async () => {
-    const tx = await referralContract.methods.recordReferrer(account, referrer).send({ from: account })
-    return tx
-  }, [account, referrer])
-  return toRecord
 }
 
 export const sousStake = async (sousChefContract, amount, decimals = 18, account) => {
