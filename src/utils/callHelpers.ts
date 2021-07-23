@@ -40,6 +40,19 @@ export const useReferralData = () => {
   return data
 }
 
+// fetch referral address of account
+export const getContractRefAddress = async (referralContract, account) => {
+  return referralContract.methods.getReferrer(account).call()
+}
+
+export const getRefCount = async (referralContract, refAdress) => {
+  return referralContract.methods.referralsCount(refAdress).call()
+}
+
+/*
+export const checkReferrer = async (referralContract, account) => {
+  return referralContract.methods.getReferrer(account).call()
+} */
 
 export const getReferrerAddress = () => {
   const referAdd = localStorage.getItem('referrer')
