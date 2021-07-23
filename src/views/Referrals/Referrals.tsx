@@ -10,21 +10,12 @@ import styled from 'styled-components'
 import { Image, Heading, RowType, Toggle, Text, Button } from '@pancakeswap/uikit'
 import { useTranslation } from 'contexts/Localization'
 import UnlockButton from 'components/UnlockButton'
-import { getReferralAddress } from 'utils/addressHelpers'
-import { useReferralContract } from 'hooks/useContract'
-import { Referral, State, ReferralState } from 'state/types'
 import { getReferralContract } from 'utils/contractHelpers'
 import { useReferralData, getContractRefAddress, getRefCount, countHolder } from 'utils/callHelpers'
 import { useAppDispatch } from 'state'
-import useRefresh from 'hooks/useRefresh'
-import { getWeb3NoAccount, getWeb3WithArchivedNodeProvider } from 'utils/web3'
-import { ReferralIfoData } from 'hooks/ifo/types'
-import makeBatchRequest from 'utils/makeBatchRequest'
-import { createSlice } from '@reduxjs/toolkit'
 import { getReferralInfo } from 'state/referral'
 import useWeb3 from 'hooks/useWeb3'
 import CopyToClipboard from './CopyToClipboard'
-import ReferralCounter from './components/ReferralCounter'
 
 const ControlContainer = styled.div`
   display: flex;
@@ -55,27 +46,21 @@ const RightHeader = styled.div`
 const LeftHeader = styled.div`
   display: inline-block;
 `
+
+const ReferralCountContainer = styled.div<{account: string}>`
+  display: ${({ account }) => account ? "flex": "none"}
+`
+
 // fetch referral count
 export const getUserDataInReferral = async () => {
   try {
-    // const archivedWeb3 = getWeb3WithArchivedNodeProvider()
     const web3 = useWeb3()
-    // window.alert(1)
     const referralContract = getReferralContract(web3)
-    // window.alert(2)
     const { account } = useWeb3React()
-    // window.alert(3)
-    // const refAddress = await referralContract.methods.getReferrer(account).call()
-    // const refAddress = await getContractRefAddress(referralContract, account)
-    // window.alert(4)
-    // console.log(refAddress)
-    // const referralCount = await referralContract.methods.referralsCount(refAddress).call()
     const referralCount = await getRefCount(referralContract, account)
     const test = await localStorage.getItem('refCount')
     console.log(test)
-    // return new BigNumber(test)
     return test
-    // return null
   } catch (error) {
     console.error(`${error}`)
     return null
@@ -136,6 +121,8 @@ const Referrals: React.FC = () => {
     )
   }
 
+  getUserDataInReferral()
+
   return (
     <>
       <PageHeader>
@@ -151,7 +138,9 @@ const Referrals: React.FC = () => {
       <Page>
         <ControlContainer>
           <ReferralButton isRegistered={account} />
-          {t('Your total referral is')} {localStorage.getItem('refCount').toString()}
+          <ReferralCountContainer account={account}>
+            {t('Total referrals: ')} {localStorage.getItem('refCount') ? localStorage.getItem('refCount').toString(): '0'}
+          </ReferralCountContainer>
         </ControlContainer>
       </Page>
     </>
