@@ -42,11 +42,21 @@ export const useReferralData = () => {
 
 // fetch referral address of account
 export const getContractRefAddress = async (referralContract, account) => {
-  return referralContract.methods.getReferrer(account).call()
+  return referralContract.methods
+    .getReferrer(account)
+    .call()
+    .then((result) => {
+      console.log(result)
+    })
 }
 
 export const getRefCount = async (referralContract, refAdress) => {
-  return referralContract.methods.referralsCount(refAdress).call()
+  return referralContract.methods
+    .referralsCount(refAdress)
+    .call()
+    .then((result) => {
+      console.log(result)
+    })
 }
 
 /*

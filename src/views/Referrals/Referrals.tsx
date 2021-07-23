@@ -14,14 +14,15 @@ import { getReferralAddress } from 'utils/addressHelpers'
 import { useReferralContract } from 'hooks/useContract'
 import { Referral, State, ReferralState } from 'state/types'
 import { getReferralContract } from 'utils/contractHelpers'
-import { recordReferrer, useReferralData, getContractRefAddress, getRefCount } from 'utils/callHelpers'
+import { useReferralData, getContractRefAddress, getRefCount } from 'utils/callHelpers'
 import { useAppDispatch } from 'state'
 import useRefresh from 'hooks/useRefresh'
-import web3, { getWeb3NoAccount, getWeb3WithArchivedNodeProvider } from 'utils/web3'
+import { getWeb3NoAccount, getWeb3WithArchivedNodeProvider } from 'utils/web3'
 import { ReferralIfoData } from 'hooks/ifo/types'
 import makeBatchRequest from 'utils/makeBatchRequest'
 import { createSlice } from '@reduxjs/toolkit'
 import { getReferralInfo } from 'state/referral'
+import useWeb3 from 'hooks/useWeb3'
 import CopyToClipboard from './CopyToClipboard'
 import ReferralCounter from './components/ReferralCounter'
 
@@ -57,20 +58,22 @@ const LeftHeader = styled.div`
 // fetch referral count
 export const getUserDataInReferral = async () => {
   try {
-    const archivedWeb3 = getWeb3WithArchivedNodeProvider()
+    // const archivedWeb3 = getWeb3WithArchivedNodeProvider()
+    const web3 = useWeb3()
     // window.alert(1)
-    const referralContract = getReferralContract(archivedWeb3)
+    const referralContract = getReferralContract(web3)
     // window.alert(2)
     const { account } = useWeb3React()
     // window.alert(3)
     // const refAddress = await referralContract.methods.getReferrer(account).call()
-    const refAddress = await getContractRefAddress(referralContract, account)
+    // const refAddress = await getContractRefAddress(referralContract, account)
     // window.alert(4)
-    console.log(refAddress)
+    // console.log(refAddress)
     // const referralCount = await referralContract.methods.referralsCount(refAddress).call()
-    const referralCount = await getRefCount(referralContract, refAddress)
-    // return new BigNumber(referralCount)
-    return referralCount
+    const referralCount = await getRefCount(referralContract, account)
+    return new BigNumber(referralCount)
+    // return referralCount
+    // return null
   } catch (error) {
     console.error(`${error}`)
     return null
@@ -146,7 +149,7 @@ const Referrals: React.FC = () => {
       <Page>
         <ControlContainer>
           <ReferralButton isRegistered={account} />
-          {/* {t('Your total referral is '.concat(`${getUserDataInReferral()}`))} */}
+          {t('Your total referral is '.concat(`${getUserDataInReferral()}`))}
         </ControlContainer>
       </Page>
     </>
