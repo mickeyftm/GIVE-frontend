@@ -1,6 +1,6 @@
 import { getReferralAddress } from 'utils/addressHelpers'
 import { getBalanceNumber } from "utils/formatBalance"
-import multicall from 'utils/multicall'
+import {multicall}  from 'utils/multicall'
 import referralAbi from "config/abi/referral.json"
 import { BigNumber } from 'bignumber.js'
 

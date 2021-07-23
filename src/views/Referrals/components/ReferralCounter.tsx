@@ -16,6 +16,7 @@ const Counter = () => {
   return (
     <>
       <Text>{count}</Text>
+      
     </>
   )
 }

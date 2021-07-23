@@ -12,7 +12,7 @@ const initialState: ReferralState = {
 }
 
 export const referralSlice = createSlice({
-    name: 'Referrals',
+    name: 'Referral',
     initialState,
     reducers: {
         setBlock: (state, action) => {
@@ -22,7 +22,7 @@ export const referralSlice = createSlice({
 })
 
 // Actions
-const {setBlock} = referralSlice.actions
+export const {setBlock} = referralSlice.actions
 
 // Thunks
 /*

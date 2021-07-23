@@ -6,7 +6,6 @@ import { useTranslation } from 'contexts/Localization'
 import useTheme from 'hooks/useTheme'
 import useAuth from 'hooks/useAuth'
 import { usePriceCakeBusd, useProfile } from 'state/hooks'
-import {  recordReferrer } from 'utils/callHelpers'
 import { getReferralContract } from 'utils/contractHelpers'
 import config from './config'
 
@@ -25,18 +24,8 @@ const Menu = (props) => {
   return name
 }
 
-const RecordReferral = () => {
-  const isReferred = getReferrerAddress()
-  if (isReferred) {
-    return (
-      recordReferrer(myReferralContract,account,getReferrerAddress)
-    )
-  } return null
-}
-
   return (
     <>
-    {RecordReferral}
     <UikitMenu
       account={account}
       login={login}
