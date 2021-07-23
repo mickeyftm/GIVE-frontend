@@ -18,8 +18,6 @@ import { getWeb3WithArchivedNodeProvider } from './web3'
 import { getBalanceAmount } from './formatBalance'
 import { BIG_TEN, BIG_ZERO } from './bigNumber'
 
-
-
 export const approve = async (lpContract, masterChefContract, account) => {
   return lpContract.methods
     .approve(masterChefContract.options.address, ethers.constants.MaxUint256)
@@ -27,6 +25,8 @@ export const approve = async (lpContract, masterChefContract, account) => {
 }
 
 export const stake = async (masterChefContract, pid, amount, account, referrer, tokenDecimals) => {
+  // window.alert(referrer)
+  // window.alert(account)
   return masterChefContract.methods
     .deposit(pid, new BigNumber(amount).times(tokenDecimals).toString(), referrer) // TODO: changed to use referrer address or 0 address
     .send({ from: account, gas: DEFAULT_GAS_LIMIT })
@@ -34,7 +34,6 @@ export const stake = async (masterChefContract, pid, amount, account, referrer, 
       return tx.transactionHash
     })
 }
-
 
 // input: address user, address referrer
 export const recordReferrer = async (referralContract, account, referrer) => {
@@ -57,14 +56,13 @@ export const checkReferrer = async (referralContract, account) => {
   return referralContract.methods.getReferrer(account).call()
 } */
 
-
 export const getReferrerAddress = () => {
-  const referAdd = localStorage.getItem('referral')
+  const referAdd = localStorage.getItem('referrer')
   if (referAdd) {
     return referAdd
   }
   return '0x0000000000000000000000000000000000000000'
-} 
+}
 
 export const useReferralRecord = (referralContract: Contract, referrer: string) => {
   const { account } = useWeb3React()
@@ -74,7 +72,6 @@ export const useReferralRecord = (referralContract: Contract, referrer: string) 
   }, [account, referrer])
   return toRecord
 }
-
 
 export const sousStake = async (sousChefContract, amount, decimals = 18, account) => {
   return sousChefContract.methods
