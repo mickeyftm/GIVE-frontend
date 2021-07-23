@@ -158,10 +158,10 @@ const config: (t: ContextApi['t']) => MenuEntry[] = (t) => [
         href: 'https://bcharityfi.gitbook.io/bcharity/',
         // href: 'https://docs.pancakeswap.finance',
       },
-      // {
-      //   label: t('Blog'),
-      //   href: 'https://pancakeswap.medium.com',
-      // },
+      {
+        label: t('Vfat tools'),
+        href: 'https://vfat.tools/polygon/bcharity',
+      },
       // {
       //   label: t('Merch'),
       //   href: 'https://pancakeswap.creator-spring.com/',
