@@ -95,7 +95,10 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm, removed, cakePrice, account }
       : ''
 
   // const lpLabel = farm.lpSymbol && farm.lpSymbol.toUpperCase().replace('PANCAKE', '')
-  const lpLabel = farm.lpSymbol.split(' ')[0].concat('-', farm.lpSymbol.split(' ')[1])
+  const lpLabel = farm.lpSymbol.split(' ')[0]
+
+  // add this line back to the end of the line above if you want to attach LP again
+  // .concat('-', farm.lpSymbol.split(' ')[1])
 
   const earnLabel = farm.dual ? farm.dual.earnLabel : 'GIVE'
 
