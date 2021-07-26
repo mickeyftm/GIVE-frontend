@@ -10,6 +10,7 @@ const farms: FarmConfig[] = [
     lpSymbol: 'GIVE',
     isSingleToken: true,
     isCommunity: true,
+    swapPlatform: 'QuickSwap',
     lpAddresses: {
       4: '',
       137: '0x9Bbcda2606e616659b118399A2823E8a392f55DA',
@@ -24,6 +25,7 @@ const farms: FarmConfig[] = [
   {
     pid: 1,
     lpSymbol: 'GIVE-USDC LP',
+    swapPlatform: 'QuickSwap',
     lpAddresses: {
       4: '',
       137: '0xe9c29faa9ba030df89dcc4efdcbf50168bae4a58',
@@ -34,6 +36,7 @@ const farms: FarmConfig[] = [
   {
     pid: 2,
     lpSymbol: 'GIVE-WMATIC LP',
+    swapPlatform: 'QuickSwap',
     lpAddresses: {
       4: '',
       137: '0x71cb1552dadb57ad9cf3d5327b2de9035fa39b3f',
@@ -44,6 +47,7 @@ const farms: FarmConfig[] = [
   {
     pid: 3,
     lpSymbol: 'GIVE-QUICK LP',
+    swapPlatform: 'QuickSwap',
     lpAddresses: {
       4: '',
       137: '0x933a80ba311C3922E37e32d876AE3f460b2bd343',
@@ -55,6 +59,7 @@ const farms: FarmConfig[] = [
     pid: 4,
     lpSymbol: 'WMATIC',
     isSingleToken: true,
+    swapPlatform: 'QuickSwap',
     lpAddresses: {
       4: '',
       137: '0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270',
@@ -70,7 +75,7 @@ const farms: FarmConfig[] = [
     pid: 5,
     lpSymbol: 'USDC',
     isSingleToken: true,
-    isHiddenFarm: false, // TEMP TODO: change back
+    swapPlatform: 'QuickSwap',
     lpAddresses: {
       4: '',
       137: '0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174',
@@ -86,7 +91,7 @@ const farms: FarmConfig[] = [
     pid: 6,
     lpSymbol: 'DAI',
     isSingleToken: true,
-
+    swapPlatform: 'QuickSwap',
     lpAddresses: {
       4: '',
       137: '0x8f3cf7ad23cd3cadbd9735aff958023239c6a063',
@@ -102,7 +107,7 @@ const farms: FarmConfig[] = [
     pid: 7,
     lpSymbol: 'WBTC',
     isSingleToken: true,
-    isHiddenFarm: false, // TEMP TODO: change back
+    swapPlatform: 'QuickSwap',
     lpAddresses: {
       4: '',
       137: '0x1bfd67037b42cf73acf2047067bd4f2c47d9bfd6',
@@ -118,6 +123,7 @@ const farms: FarmConfig[] = [
     pid: 8,
     lpSymbol: 'WETH',
     isSingleToken: true,
+    swapPlatform: 'QuickSwap',
     lpAddresses: {
       4: '',
       137: '0x7ceb23fd6bc0add59e62ac25578270cff1b9f619',
@@ -133,6 +139,7 @@ const farms: FarmConfig[] = [
     pid: 9,
     lpSymbol: 'QUICK',
     isSingleToken: true,
+    swapPlatform: 'QuickSwap',
     lpAddresses: {
       4: '',
       137: '0x831753dd7087cac61ab5644b308642cc1c33dc13',
@@ -148,6 +155,7 @@ const farms: FarmConfig[] = [
     pid: 10,
     lpSymbol: 'CRV',
     isSingleToken: true,
+    swapPlatform: 'QuickSwap',
     lpAddresses: {
       4: '',
       137: '0x172370d5cd63279efa6d502dab29171933a610af',
@@ -163,6 +171,7 @@ const farms: FarmConfig[] = [
     pid: 11,
     lpSymbol: 'AAVE',
     isSingleToken: true,
+    swapPlatform: 'QuickSwap',
     lpAddresses: {
       4: '',
       137: '0xd6df932a45c0f255f85145f286ea0b292b21c90b',
@@ -177,6 +186,7 @@ const farms: FarmConfig[] = [
   {
     pid: 12,
     lpSymbol: 'USDC-MATIC LP',
+    swapPlatform: 'QuickSwap',
     isHiddenFarm: true,
     lpAddresses: {
       4: '',
@@ -188,6 +198,7 @@ const farms: FarmConfig[] = [
   // {
   //   pid: 13,
   //   lpSymbol: 'GIVE-USDC SLP',
+  //   swapPlatform: 'SushiSwap',
   //   lpAddresses: {
   //     4: '',
   //     137: '0xF87772a82B918b8A90Fb16B1bc1199A85ab17a6A',
@@ -198,6 +209,7 @@ const farms: FarmConfig[] = [
   //  {
   //   pid: 14,
   //   lpSymbol: 'GIVE-USDC ALP',
+  //   swapPlatform: 'ApeSwap',
   //   lpAddresses: {
   //     4: '',
   //     137: '0x75D63764295bfE088CE1685E971faA39Bbc8cDa1',
@@ -209,7 +221,7 @@ const farms: FarmConfig[] = [
   //   pid: 15,
   //   lpSymbol: 'SUSHI',
   //   isSingleToken: true,
-
+  //   swapPlatform: 'SushiSwap',
   //   lpAddresses: {
   //     4: '',
   //     137: '0x0b3F868E0BE5597D5DB7fEB59E1CADBb0fdDa50a',
@@ -225,7 +237,7 @@ const farms: FarmConfig[] = [
   //   pid: 16,
   //   lpSymbol: 'BANANA',
   //   isSingleToken: true,
-
+  //   swapPlatform: 'ApeSwap',
   //   lpAddresses: {
   //     4: '',
   //     137: '0x5d47bAbA0d66083C52009271faF3F50DCc01023C',

@@ -122,6 +122,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm, removed, cakePrice, account }
         isCommunityFarm={farm.isCommunity}
         farmImage={farmImage}
         tokenSymbol={farm.token.symbol}
+        swapPlatform={farm.swapPlatform}
       />
       <Flex justifyContent="space-between" alignItems="center">
         <Text>{t('APY')}:</Text>

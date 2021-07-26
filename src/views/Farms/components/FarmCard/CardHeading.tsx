@@ -9,6 +9,7 @@ export interface ExpandableSectionProps {
   isCommunityFarm?: boolean
   farmImage?: string
   tokenSymbol?: string
+  swapPlatform?: string
 }
 
 const Wrapper = styled(Flex)`
@@ -20,6 +21,9 @@ const Wrapper = styled(Flex)`
 const MultiplierTag = styled(Tag)`
   margin-left: 4px;
 `
+const SwapTag = styled(Tag)`
+  margin-top: 5px;
+`
 
 const CardHeading: React.FC<ExpandableSectionProps> = ({
   lpLabel,
@@ -27,6 +31,7 @@ const CardHeading: React.FC<ExpandableSectionProps> = ({
   isCommunityFarm,
   farmImage,
   tokenSymbol,
+  swapPlatform,
 }) => {
   return (
     <Wrapper justifyContent="space-between" alignItems="center" mb="12px">
@@ -37,6 +42,7 @@ const CardHeading: React.FC<ExpandableSectionProps> = ({
           {isCommunityFarm ? <CommunityTag /> : <CoreTag />}
           <MultiplierTag variant="secondary">{multiplier}</MultiplierTag>
         </Flex>
+        <SwapTag variant="primary" outline="true">{swapPlatform}</SwapTag>
       </Flex>
     </Wrapper>
   )
