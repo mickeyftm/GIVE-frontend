@@ -137,5 +137,27 @@ const tokens = {
     decimals: 18,
     logoURI: ''
   },
+  banana: {
+    symbol: 'BANANA',
+    address: {
+      // 137 polygon
+      //  4 rinkeby
+      4: '',
+      137: '0x5d47bAbA0d66083C52009271faF3F50DCc01023C'
+    },
+    decimals: 18,
+    logoURI: ''
+  },
+  sushi: {
+    symbol: 'sushi',
+    address: {
+      // 137 polygon
+      //  4 rinkeby
+      4: '',
+      137: '0x0b3F868E0BE5597D5DB7fEB59E1CADBb0fdDa50a'
+    },
+    decimals: 18,
+    logoURI: ''
+  } 
 }
 export default tokens
