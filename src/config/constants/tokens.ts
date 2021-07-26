@@ -126,5 +126,16 @@ const tokens = {
     decimals: 18,
     logoURI: 'ipfs://QmXttGpZrECX5qCyXbBQiqgQNytVGeZW5Anewvh2jc4psg',
   },
+  banana: {
+    symbol: 'BANANA',
+    address: {
+      // 137 polygon
+      //  4 rinkeby
+      4: '',
+      137: '0x5d47bAbA0d66083C52009271faF3F50DCc01023C'
+    },
+    decimals: 18,
+    logoURI: ''
+  },
 }
 export default tokens
