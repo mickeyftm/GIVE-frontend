@@ -185,6 +185,16 @@ const farms: FarmConfig[] = [
     token: tokens.usdc,
     quoteToken: tokens.wmatic,
   },
+  {
+    pid: 13,
+    lpSymbol: 'GIVE-USDC SLP',
+    lpAddresses: {
+      4: '',
+      137: '0xF87772a82B918b8A90Fb16B1bc1199A85ab17a6A',
+    },
+    token: tokens.give,
+    quoteToken: tokens.usdc,
+  },
 ]
 
 export default farms
