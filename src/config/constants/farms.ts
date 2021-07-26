@@ -195,6 +195,16 @@ const farms: FarmConfig[] = [
     token: tokens.give,
     quoteToken: tokens.usdc,
   },
+   {
+    pid: 14,
+    lpSymbol: 'GIVE-USDC ALP',
+    lpAddresses: {
+      4: '',
+      137: '0x75D63764295bfE088CE1685E971faA39Bbc8cDa1',
+    },
+    token: tokens.give,
+    quoteToken: tokens.usdc,
+  }
 ]
 
 export default farms
