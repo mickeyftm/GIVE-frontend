@@ -30,6 +30,10 @@ const config: (t: ContextApi['t']) => MenuEntry[] = (t) => [
         label: t('Liquidity (QuickSwap)'),
         href: 'https://quickswap.exchange/#/add/0x9Bbcda2606e616659b118399A2823E8a392f55DA/undefined',
       },
+      {
+        label: t('Bridge (MultiChain)'),
+        href: 'https://multichain.xyz'
+      }
       // {
       //   label: t('Exchange'),
       //   href: 'https://exchange.pancakeswap.finance/#/swap',
@@ -118,6 +122,7 @@ const config: (t: ContextApi['t']) => MenuEntry[] = (t) => [
         label: t('Polychart'),
         href: 'https://app.polychart.io/explorer/polygon/0xE9C29fAa9Ba030Df89Dcc4eFDCBF50168bAE4a58',
       },
+
       // {
       //   label: t('Tokens'),
       //   href: 'https://pancakeswap.info/tokens',
@@ -158,10 +163,10 @@ const config: (t: ContextApi['t']) => MenuEntry[] = (t) => [
         href: 'https://bcharityfi.gitbook.io/bcharity/',
         // href: 'https://docs.pancakeswap.finance',
       },
-      {
-        label: t('Vfat tools'),
-        href: 'https://vfat.tools/polygon/bcharity',
-      },
+      // {
+      //   label: t('Vfat tools'),
+      //   href: 'https://vfat.tools/polygon/bcharity',
+      // },
       // {
       //   label: t('Merch'),
       //   href: 'https://pancakeswap.creator-spring.com/',
