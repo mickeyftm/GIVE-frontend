@@ -185,58 +185,58 @@ const farms: FarmConfig[] = [
     token: tokens.usdc,
     quoteToken: tokens.wmatic,
   },
-  {
-    pid: 13,
-    lpSymbol: 'GIVE-USDC SLP',
-    lpAddresses: {
-      4: '',
-      137: '0xF87772a82B918b8A90Fb16B1bc1199A85ab17a6A',
-    },
-    token: tokens.give,
-    quoteToken: tokens.usdc,
-  },
-   {
-    pid: 14,
-    lpSymbol: 'GIVE-USDC ALP',
-    lpAddresses: {
-      4: '',
-      137: '0x75D63764295bfE088CE1685E971faA39Bbc8cDa1',
-    },
-    token: tokens.give,
-    quoteToken: tokens.usdc,
-  },
-  {
-    pid: 15,
-    lpSymbol: 'SUSHI',
-    isSingleToken: true,
+  // {
+  //   pid: 13,
+  //   lpSymbol: 'GIVE-USDC SLP',
+  //   lpAddresses: {
+  //     4: '',
+  //     137: '0xF87772a82B918b8A90Fb16B1bc1199A85ab17a6A',
+  //   },
+  //   token: tokens.give,
+  //   quoteToken: tokens.usdc,
+  // },
+  //  {
+  //   pid: 14,
+  //   lpSymbol: 'GIVE-USDC ALP',
+  //   lpAddresses: {
+  //     4: '',
+  //     137: '0x75D63764295bfE088CE1685E971faA39Bbc8cDa1',
+  //   },
+  //   token: tokens.give,
+  //   quoteToken: tokens.usdc,
+  // },
+  // {
+  //   pid: 15,
+  //   lpSymbol: 'SUSHI',
+  //   isSingleToken: true,
 
-    lpAddresses: {
-      4: '',
-      137: '0x0b3F868E0BE5597D5DB7fEB59E1CADBb0fdDa50a',
-    },
-    qlpAddresses: {
-      4: '',
-      137: '0xE15E9d2a5af5c1d3524bBC594DDc4a7D80aD27CD',
-    },
-    token: tokens.sushi,
-    quoteToken: tokens.usdc,
-  },
-  {
-    pid: 16,
-    lpSymbol: 'BANANA',
-    isSingleToken: true,
+  //   lpAddresses: {
+  //     4: '',
+  //     137: '0x0b3F868E0BE5597D5DB7fEB59E1CADBb0fdDa50a',
+  //   },
+  //   qlpAddresses: {
+  //     4: '',
+  //     137: '0xE15E9d2a5af5c1d3524bBC594DDc4a7D80aD27CD',
+  //   },
+  //   token: tokens.sushi,
+  //   quoteToken: tokens.usdc,
+  // },
+  // {
+  //   pid: 16,
+  //   lpSymbol: 'BANANA',
+  //   isSingleToken: true,
 
-    lpAddresses: {
-      4: '',
-      137: '0x5d47bAbA0d66083C52009271faF3F50DCc01023C',
-    },
-    qlpAddresses: {
-      4: '',
-      137: '0xd7b3132b9aedc86e6cd28ba3b29da6c30c049327',
-    },
-    token: tokens.banana,
-    quoteToken: tokens.usdc,
-  }
+  //   lpAddresses: {
+  //     4: '',
+  //     137: '0x5d47bAbA0d66083C52009271faF3F50DCc01023C',
+  //   },
+  //   qlpAddresses: {
+  //     4: '',
+  //     137: '0xd7b3132b9aedc86e6cd28ba3b29da6c30c049327',
+  //   },
+  //   token: tokens.banana,
+  //   quoteToken: tokens.usdc,
+  // }
 ]
 
 export default farms

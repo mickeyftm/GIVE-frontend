@@ -1,5 +1,3 @@
-
-
 const tokens = {
   give: {
     symbol: 'GIVE',
@@ -18,10 +16,10 @@ const tokens = {
       // 137 polygon
       //  4 rinkeby
       4: '',
-      137: '0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270'
+      137: '0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270',
     },
     decimals: 18,
-    logoURI: ''
+    logoURI: '',
   },
   weth: {
     symbol: 'WETH',
@@ -29,7 +27,7 @@ const tokens = {
       // 137 polygon
       //  4 rinkeby
       4: '0xc778417E063141139Fce010982780140Aa0cD5Ab',
-      137: '0x7ceb23fd6bc0add59e62ac25578270cff1b9f619'
+      137: '0x7ceb23fd6bc0add59e62ac25578270cff1b9f619',
     },
     decimals: 18,
     logoURI:
@@ -41,10 +39,10 @@ const tokens = {
       // 137 polygon
       //  4 rinkeby
       4: '',
-      137: '0x1bfd67037b42cf73acf2047067bd4f2c47d9bfd6'
+      137: '0x1bfd67037b42cf73acf2047067bd4f2c47d9bfd6',
     },
     decimals: 8,
-    logoURI: ''
+    logoURI: '',
   },
   quick: {
     symbol: 'QUICK',
@@ -52,10 +50,10 @@ const tokens = {
       // 137 polygon
       //  4 rinkeby
       4: '',
-      137: '0x831753dd7087cac61ab5644b308642cc1c33dc13'
+      137: '0x831753dd7087cac61ab5644b308642cc1c33dc13',
     },
     decimals: 18,
-    logoURI: ''
+    logoURI: '',
   },
   usdc: {
     symbol: 'USDC',
@@ -87,10 +85,10 @@ const tokens = {
       // 137 polygon
       //  4 rinkeby
       4: '',
-      137: '0x172370d5cd63279efa6d502dab29171933a610af'
+      137: '0x172370d5cd63279efa6d502dab29171933a610af',
     },
     decimals: 18,
-    logoURI: ''
+    logoURI: '',
   },
   aave: {
     symbol: 'AAVE',
@@ -98,10 +96,10 @@ const tokens = {
       // 137 polygon
       //  4 rinkeby
       4: '',
-      137: '0xd6df932a45c0f255f85145f286ea0b292b21c90b'
+      137: '0xd6df932a45c0f255f85145f286ea0b292b21c90b',
     },
     decimals: 18,
-    logoURI: ''
+    logoURI: '',
   },
   maker: {
     symbol: 'MKR',
@@ -132,21 +130,10 @@ const tokens = {
       // 137 polygon
       //  4 rinkeby
       4: '',
-      137: '0x5d47bAbA0d66083C52009271faF3F50DCc01023C'
+      137: '0x5d47bAbA0d66083C52009271faF3F50DCc01023C',
     },
     decimals: 18,
-    logoURI: ''
-  },
-  banana: {
-    symbol: 'BANANA',
-    address: {
-      // 137 polygon
-      //  4 rinkeby
-      4: '',
-      137: '0x5d47bAbA0d66083C52009271faF3F50DCc01023C'
-    },
-    decimals: 18,
-    logoURI: ''
+    logoURI: '',
   },
   sushi: {
     symbol: 'sushi',
@@ -154,10 +141,10 @@ const tokens = {
       // 137 polygon
       //  4 rinkeby
       4: '',
-      137: '0x0b3F868E0BE5597D5DB7fEB59E1CADBb0fdDa50a'
+      137: '0x0b3F868E0BE5597D5DB7fEB59E1CADBb0fdDa50a',
     },
     decimals: 18,
-    logoURI: ''
-  } 
+    logoURI: '',
+  },
 }
 export default tokens
