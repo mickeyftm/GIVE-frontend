@@ -42,7 +42,9 @@ const CardHeading: React.FC<ExpandableSectionProps> = ({
           {isCommunityFarm ? <CommunityTag /> : <CoreTag />}
           <MultiplierTag variant="secondary">{multiplier}</MultiplierTag>
         </Flex>
-        <SwapTag variant="primary" outline="true">{swapPlatform}</SwapTag>
+        <SwapTag variant="primary" outline>
+          {swapPlatform}
+        </SwapTag>
       </Flex>
     </Wrapper>
   )
