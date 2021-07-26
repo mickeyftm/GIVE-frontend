@@ -9,6 +9,7 @@ import { useTranslation } from 'contexts/Localization'
 import ExpandableSectionButton from 'components/ExpandableSectionButton'
 import { BASE_ADD_LIQUIDITY_URL } from 'config'
 import getLiquidityUrlPathParts from 'utils/getLiquidityUrlPathParts'
+import getTokenUrlPath from 'utils/getTokenUrlPath'
 import DetailsSection from './DetailsSection'
 import CardHeading from './CardHeading'
 import CardActionsContainer from './CardActionsContainer'
@@ -103,7 +104,12 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm, removed, cakePrice, account }
     quoteTokenAddress: farm.quoteToken.address,
     tokenAddress: farm.token.address,
   })
-  const addLiquidityUrl = `https://quickswap.exchange/#/swap`
+
+  const tokenUrlPath = getTokenUrlPath({
+    tokenAddress: farm.token.address,
+  })
+
+  const addLiquidityUrl = `https://quickswap.exchange/#/swap?outputCurrency=${tokenUrlPath}`
   // `${BASE_ADD_LIQUIDITY_URL}/${liquidityUrlPathParts}`
   const lpAddress = farm.lpAddresses[process.env.REACT_APP_CHAIN_ID]
   const isPromotedFarm = farm.token.symbol === 'GIVE'
